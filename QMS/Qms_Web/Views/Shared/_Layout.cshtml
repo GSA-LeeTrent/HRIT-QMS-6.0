@@ -12,7 +12,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/kendo/js/kendo.all.min.js"></script>
     <script src="~/lib/kendo/js/kendo.aspnetmvc.min.js"></script>
-    @Html.Kendo().DeferredScripts()
     @RenderSection("scripts", required: false)
 </head>
 <body>
@@ -53,5 +52,6 @@
     </footer>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
