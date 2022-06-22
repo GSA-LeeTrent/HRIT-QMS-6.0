@@ -6,3 +6,16 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+<div class="mt-5">
+    @(Html.Kendo().Button()
+            .Name("htmlHelperButton")
+            .ThemeColor(ThemeColor.Primary)
+            .Content("HtmlHelper Button")
+            .Deferred(true)
+    )
+</div>
+<div class="mt-5">
+    <kendo-button name="tagHelperButton" theme-color="ThemeColor.Primary" deferred="true">
+        TagHelper Button
+    </kendo-button>
+</div>

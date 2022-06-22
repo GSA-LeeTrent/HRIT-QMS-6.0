@@ -1,0 +1,317 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<style>
+    .k-footer-template {
+        display: none;
+    }
+
+    .k-card-header {
+        flex: 0 0 auto;
+    }
+
+    .k-card-body {
+        overflow: hidden;
+    }
+</style>
+
+<script id="days-to-resolve-tickets-bar-template" type="text/x-kendo-template">
+    @(Html.Kendo().Chart<QMSChart>()
+        .Name("days-to-resolve-tickets-bar")
+        .Series(s => 
+        {
+            s.Column(model => model.Value, model => model.Key).Labels(labels => labels.Background("transparent").Visible(true));
+        })
+        .Legend(l => l.Visible(false))
+        .CategoryAxis(axis => axis.Categories(model => model.Key).Title(t=>t.Text("Days Open")))
+        .ValueAxis(v => v.Min(0).Max(800).Labels(l => l.Step(2)).Title(t=>t.Text("Total")))
+        .DataSource(d => d.Read("DaysToResolveTickets_Read", "Telerik"))
+        .HtmlAttributes(new { style = "height:100%;width:100%;" })
+        .ToClientTemplate()
+    )
+</script>
+<script id="days-to-resolve-tickets-line-template" type="text/x-kendo-template">
+    @(Html.Kendo().Chart<QMSChart>()
+        .Name("days-to-resolve-tickets-line")
+        .Series(s => 
+        {
+            s.Line(model => model.Value, model => model.Key).Labels(labels => labels.Background("transparent").Visible(true));
+        })
+        .Legend(l => l.Visible(false))
+        .CategoryAxis(axis => axis.Categories(model => model.Key).Title(t=>t.Text("Days Open")))
+        .ValueAxis(v => v.Min(0).Max(800).Labels(l => l.Step(2)).Title(t=>t.Text("Total")))
+        .DataSource(d => d.Read("DaysToResolveTickets_Read", "Telerik"))
+        .HtmlAttributes(new { style = "height:100%;width:100%;" })
+        .ToClientTemplate()
+    )
+</script>
+<script id="days-to-resolve-tickets-bar-template-multi" type="text/x-kendo-template">
+    @(Html.Kendo().Chart<QMSChart>()
+        .Name("days-to-resolve-tickets-bar-multi")
+        .Series(series => {
+            series.Column(model => model.Value).Name("Organization 1").CategoryField("Key").Labels(labels => labels.Background("transparent").Visible(true));
+            series.Column(model => model.ValueTwo).Name("Organization 2").CategoryField("Key").Labels(labels => labels.Background("transparent").Visible(true));;
+            series.Column(model => model.ValueThree).Name("Organization 3").CategoryField("Key").Labels(labels => labels.Background("transparent").Visible(true));;
+        })
+        .Legend(legend => legend.Position(ChartLegendPosition.Top))
+        .CategoryAxis(axis => axis.Categories(model => model.Key).Title(t=>t.Text("Days Open")))
+        .ValueAxis(v => v.Min(0).Max(800).Labels(l => l.Step(2)).Title(t=>t.Text("Total")))
+        .DataSource(d => d.Read("DaysToResolveTicketsForMultipleOrgs_Read", "Telerik"))
+        .HtmlAttributes(new { style = "height:100%;width:100%;" })
+        .ToClientTemplate()
+    )
+</script>
+<script id="days-to-resolve-tickets-line-template-multi" type="text/x-kendo-template">
+    @(Html.Kendo().Chart<QMSChart>()
+        .Name("days-to-resolve-tickets-line-multi")
+        .Series(series => {
+            series.Line(model => model.Value).Name("Organization 1").CategoryField("Key").Labels(labels => labels.Background("transparent").Visible(true));;
+            series.Line(model => model.ValueTwo).Name("Organization 2").CategoryField("Key").Labels(labels => labels.Background("transparent").Visible(true));;
+            series.Line(model => model.ValueThree).Name("Organization 3").CategoryField("Key").Labels(labels => labels.Background("transparent").Visible(true));;
+        })
+        .Legend(legend => legend.Position(ChartLegendPosition.Top))
+        .CategoryAxis(axis => axis.Categories(model => model.Key).Title(t=>t.Text("Days Open")))
+        .ValueAxis(v => v.Min(0).Max(800).Labels(l => l.Step(2)).Title(t=>t.Text("Total")))
+        .DataSource(d => d.Read("DaysToResolveTicketsForMultipleOrgs_Read", "Telerik"))
+        .HtmlAttributes(new { style = "height:100%;width:100%;" })
+        .ToClientTemplate()
+    )
+    )
+</script>
+<script id="donut-labels" type="text/x-kendo-template">
+    #= category #
+</script>
+<script id="totals-by-status-pie-template" type="text/x-kendo-template">
+    @(Html.Kendo().Chart()
+        .Name("totals-by-status-pie")
+        .Series(s => s.Pie("Value", "Key")
+            .AutoFit()
+            .Labels(labels => labels
+            .Visible(true)
+            .TemplateId("donut-labels")
+            .Background("transparent")
+            .Position(ChartSeriesLabelsPosition.OutsideEnd)
+            )
+        )
+        .Legend(l => l.Visible(false))
+        .DataSource(d => d.Read("TotalsByStatus_Read", "Telerik"))
+        .HtmlAttributes(new { style = "height:100%;width:100%;" })
+        .ToClientTemplate()
+    )
+</script>
+<script id="totals-by-status-donut-template" type="text/x-kendo-template">
+    @(Html.Kendo().Chart<QMSChart>()
+        .Name("totals-by-status-donut")
+        .Series(s =>
+            s.Donut(model => model.Value, model => model.Key)
+            .AutoFit()
+            .Labels(labels => labels
+            .Visible(true)
+            .TemplateId("donut-labels")
+            .Position(ChartSeriesLabelsPosition.OutsideEnd)
+            .Background("transparent"))
+        )
+        .DataSource(d => d.Read("TotalsByStatus_Read", "Telerik"))
+        .Legend(l => l.Visible(false))
+        .HtmlAttributes(new { style = "height:100%;width:100%;" })
+        .ToClientTemplate()
+    )
+</script>
+<script id="totals-by-organization-pie-template" type="text/x-kendo-template">
+    @(Html.Kendo().Chart()
+        .Name("totals-by-organization-pie")
+        .Series(s => s.Pie("Value", "Key")
+            .AutoFit()
+            .Labels(labels => labels
+            .Visible(true)
+            .TemplateId("donut-labels")
+            .Background("transparent")
+            .Position(ChartSeriesLabelsPosition.OutsideEnd)
+            )
+        )
+        .Legend(l => l.Visible(false))
+        .DataSource(d => d.Read("TotalsByOrganization_Read", "Telerik"))
+        .HtmlAttributes(new { style = "height:100%;width:100%;" })
+        .ToClientTemplate()
+    )
+</script>
+<script id="totals-by-organization-donut-template" type="text/x-kendo-template">
+    @(Html.Kendo().Chart<QMSChart>()
+        .Name("totals-by-organization-donut")
+        .Series(s =>
+            s.Donut(model => model.Value, model => model.Key)
+            .AutoFit()
+            .Labels(labels => labels
+            .Visible(true)
+            .TemplateId("donut-labels")
+            .Position(ChartSeriesLabelsPosition.OutsideEnd)
+            .Background("transparent"))
+        )
+        .DataSource(d => d.Read("TotalsByOrganization_Read", "Telerik"))
+        .Legend(l => l.Visible(false))
+        .HtmlAttributes(new { style = "height:100%;width:100%;" })
+        .ToClientTemplate()
+    )
+</script>
+<script id="days-to-resolve-tickets-once-at-pprm-bar-template" type="text/x-kendo-template">
+    @(Html.Kendo().Chart<QMSChart>()
+        .Name("days-to-resolve-tickets-once-at-pprm-bar")
+        .Series(s => 
+        {
+            s.Column(model => model.Value, model => model.Key).Labels(labels => labels.Background("transparent").Visible(true));
+        })
+        .Legend(l => l.Visible(false))
+        .CategoryAxis(axis => axis.Categories(model => model.Key).Title(t=>t.Text("Days at PPRM")))
+        .ValueAxis(v => v.Min(0).Max(1000).Labels(l => l.Step(1)).Title(t=>t.Text("Total")))
+        .DataSource(d => d.Read("DaysToResolveTicketsOnceAtPPRM_Read", "Telerik"))
+        .HtmlAttributes(new { style = "height:100%;width:100%;" })
+        .ToClientTemplate()
+    )
+</script>
+<script id="days-to-resolve-tickets-once-at-pprm-line-template" type="text/x-kendo-template">
+    @(Html.Kendo().Chart<QMSChart>()
+        .Name("days-to-resolve-tickets-once-at-pprm-line")
+        .Series(s => 
+        {
+            s.Line(model => model.Value, model => model.Key).Labels(labels => labels.Background("transparent").Visible(true));
+        })
+        .Legend(l => l.Visible(false))
+        .CategoryAxis(axis => axis.Categories(model => model.Key).Title(t=>t.Text("Days at PPRM")))
+        .ValueAxis(v => v.Min(0).Max(1000).Labels(l => l.Step(1)).Title(t=>t.Text("Total")))
+        .DataSource(d => d.Read("DaysToResolveTicketsOnceAtPPRM_Read", "Telerik"))
+        .HtmlAttributes(new { style = "height:100%;width:100%;" })
+        .ToClientTemplate()
+    )
+</script>
+<script id="tickets-by-organization-created-at-bar-template" type="text/x-kendo-template">
+    @(Html.Kendo().Chart<QMSChart>()
+        .Name("tickets-by-organization-created-at-bar")
+        .Series(s => 
+        {
+            s.Column(model => model.Value, model => model.Key).Labels(labels => labels.Background("transparent").Visible(true));
+        })
+        .Legend(l => l.Visible(false))
+        .CategoryAxis(axis => axis.Categories(model => model.Key).Title(t=>t.Text("Created At")).Labels(labels => labels.Rotation(-45)))
+        .ValueAxis(v => v.Min(0).Max(1000).Labels(l => l.Step(1)).Title(t=>t.Text("Total")))
+        .DataSource(d => d.Read("TicketsByOrganizationCreatedAt_Read", "Telerik"))
+        .HtmlAttributes(new { style = "height:100%;width:100%;" })
+        .ToClientTemplate()
+    )
+</script>
+<script id="tickets-by-organization-created-at-line-template" type="text/x-kendo-template">
+    @(Html.Kendo().Chart<QMSChart>()
+        .Name("tickets-by-organization-created-at-line")
+        .Series(s => 
+        {
+            s.Line(model => model.Value, model => model.Key).Labels(labels => labels.Background("transparent").Visible(true));
+        })
+        .Legend(l => l.Visible(false))
+        .CategoryAxis(axis => axis.Categories(model => model.Key).Title(t=>t.Text("Created At")).Labels(labels => labels.Rotation(-45)))
+        .ValueAxis(v => v.Min(0).Max(1000).Labels(l => l.Step(1)).Title(t=>t.Text("Total")))
+        .DataSource(d => d.Read("TicketsByOrganizationCreatedAt_Read", "Telerik"))
+        .HtmlAttributes(new { style = "height:100%;width:100%;" })
+        .ToClientTemplate()
+    )
+</script>
+<script id="tickets-by-noa-bar-template" type="text/x-kendo-template">
+    @(Html.Kendo().Chart<QMSChart>()
+        .Name("tickets-by-noa-bar")
+        .Series(s => 
+        {
+            s.Column(model => model.Value, model => model.Key).Labels(labels => labels.Background("transparent").Visible(true));
+        })
+        .Legend(l => l.Visible(false))
+        .CategoryAxis(axis => axis.Categories(model => model.Key).Title(t=>t.Text("Error Type")).Labels(labels => labels.Rotation(-90)))
+        .ValueAxis(v => v.Min(0).Max(300).Labels(l => l.Step(2)).Title(t=>t.Text("Count")))
+        .DataSource(d => d.Read("TicketsByNOA_Read", "Telerik"))
+        .HtmlAttributes(new { style = "height:100%;width:100%;" })
+        .ToClientTemplate()
+    )
+</script>
+<script id="tickets-by-noa-line-template" type="text/x-kendo-template">
+    @(Html.Kendo().Chart<QMSChart>()
+        .Name("tickets-by-noa-line")
+        .Series(s => 
+        {
+            s.Line(model => model.Value, model => model.Key).Labels(labels => labels.Background("transparent").Visible(true));
+        })
+        .Legend(l => l.Visible(false))
+        .CategoryAxis(axis => axis.Categories(model => model.Key).Title(t=>t.Text("Error Type")).Labels(labels => labels.Rotation(-90)))
+        .ValueAxis(v => v.Min(0).Max(300).Labels(l => l.Step(2)).Title(t=>t.Text("Count")))
+        .DataSource(d => d.Read("TicketsByNOA_Read", "Telerik"))
+        .HtmlAttributes(new { style = "height:100%;width:100%;" })
+        .ToClientTemplate()
+    )
+</script>
+<script id="error-type-counts-bar-template" type="text/x-kendo-template">
+    @(Html.Kendo().Chart<QMSChart>()
+        .Name("error-type-counts-bar")
+        .Series(s => 
+        {
+            s.Column(model => model.Value, model => model.Key).Labels(labels => labels.Background("transparent").Visible(true));
+        })
+        .Legend(l => l.Visible(false))
+        .CategoryAxis(axis => axis.Categories(model => model.Key).Title(t=>t.Text("NOA")).Labels(labels => labels.Rotation(-45)))
+        .ValueAxis(v => v.Min(0).Max(300).Labels(l => l.Step(2)).Title(t=>t.Text("Total")))
+        .DataSource(d => d.Read("ErrorTypeCounts_Read", "Telerik"))
+        .HtmlAttributes(new { style = "height:100%;width:100%;" })
+        .ToClientTemplate()
+    )
+</script>
+<script id="error-type-counts-line-template" type="text/x-kendo-template">
+    @(Html.Kendo().Chart<QMSChart>()
+        .Name("error-type-counts-line")
+        .Series(s => 
+        {
+            s.Line(model => model.Value, model => model.Key).Labels(labels => labels.Background("transparent").Visible(true));
+        })
+        .Legend(l => l.Visible(false))
+        .CategoryAxis(axis => axis.Categories(model => model.Key).Title(t=>t.Text("NOA")).Labels(labels => labels.Rotation(-45)))
+        .ValueAxis(v => v.Min(0).Max(300).Labels(l => l.Step(2)).Title(t=>t.Text("Total")))
+        .DataSource(d => d.Read("ErrorTypeCounts_Read", "Telerik"))
+        .HtmlAttributes(new { style = "height:100%;width:100%;" })
+        .ToClientTemplate()
+    )
+</script>
+
+<div class="d-flex justify-content-center">
+    @(Html.Kendo().TileLayout()
+        .Name("tilelayout")
+        .Columns(4)
+        .RowsHeight("145px")
+        .ColumnsWidth("350px")
+        .Containers(c =>
+        {
+            c.Add().Header(h => h.Text("Days to Resolve Tickets")).BodyTemplateId("days-to-resolve-tickets-bar-template").ColSpan(2).RowSpan(3);
+            c.Add().Header(h => h.Text("Days to Resolve Tickets")).BodyTemplateId("days-to-resolve-tickets-line-template").ColSpan(2).RowSpan(3);
+            c.Add().Header(h => h.Text("Days to Resolve Tickets")).BodyTemplateId("days-to-resolve-tickets-bar-template-multi").ColSpan(4).RowSpan(3);
+            c.Add().Header(h => h.Text("Days to Resolve Tickets")).BodyTemplateId("days-to-resolve-tickets-line-template-multi").ColSpan(4).RowSpan(3);
+            c.Add().Header(h => h.Text("Totals by Status")).BodyTemplateId("totals-by-status-pie-template").ColSpan(2).RowSpan(3);
+            c.Add().Header(h => h.Text("Totals by Status")).BodyTemplateId("totals-by-status-donut-template").ColSpan(2).RowSpan(3);
+            c.Add().Header(h => h.Text("Totals by Organization")).BodyTemplateId("totals-by-organization-pie-template").ColSpan(2).RowSpan(3);
+            c.Add().Header(h => h.Text("Totals by Organization")).BodyTemplateId("totals-by-organization-donut-template").ColSpan(2).RowSpan(3);
+            c.Add().Header(h => h.Text("Days to Resolve Tickets Once at PPRM")).BodyTemplateId("days-to-resolve-tickets-once-at-pprm-bar-template").ColSpan(2).RowSpan(3);
+            c.Add().Header(h => h.Text("Days to Resolve Tickets Once at PPRM")).BodyTemplateId("days-to-resolve-tickets-once-at-pprm-line-template").ColSpan(2).RowSpan(3);
+            c.Add().Header(h => h.Text("Tickets by Organization Created At")).BodyTemplateId("tickets-by-organization-created-at-bar-template").ColSpan(2).RowSpan(3);
+            c.Add().Header(h => h.Text("Tickets by Organization Created At")).BodyTemplateId("tickets-by-organization-created-at-line-template").ColSpan(2).RowSpan(3);
+            c.Add().Header(h => h.Text("Tickets by NOA")).BodyTemplateId("tickets-by-noa-bar-template").ColSpan(4).RowSpan(3);
+            c.Add().Header(h => h.Text("Tickets by NOA")).BodyTemplateId("tickets-by-noa-line-template").ColSpan(4).RowSpan(3);
+            c.Add().Header(h => h.Text("Error Type Counts")).BodyTemplateId("error-type-counts-bar-template").ColSpan(4).RowSpan(3);
+            c.Add().Header(h => h.Text("Error Type Counts")).BodyTemplateId("error-type-counts-line-template").ColSpan(4).RowSpan(3);
+        })
+        .Reorderable(true)
+        .Resizable(true)
+        .Events(e => e.Resize("onTileResize"))
+    )
+    <script>
+        function onTileResize(e) {
+            var container = e.item || e.container;
+            if (container) {
+
+                // for widgets that do not auto resize
+                // https://docs.telerik.com/kendo-ui/styles-and-layout/using-kendo-in-responsive-web-pages
+                kendo.resize(container, true);
+            }
+        }
+    </script>
+</div>
