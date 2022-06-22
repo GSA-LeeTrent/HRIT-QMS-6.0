@@ -9,6 +9,7 @@ Thumbs.db
 .vscode/
 .vs/
 *.sln
+*launchSettings.json
 ###################
 # compiled source #
 ###################
