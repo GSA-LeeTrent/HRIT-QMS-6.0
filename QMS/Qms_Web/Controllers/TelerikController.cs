@@ -34,13 +34,13 @@ namespace Qms_Web.Controllers
                 ShipCity = "ShipCity " + i
             });
 
-            string logSnippet = "[GridController][Orders_Read] =>";
-            Console.WriteLine();
-            foreach (var order in result)
-            {
-                Console.WriteLine($"{logSnippet} (order.ShipName): '{order.ShipName}'");
-            }
-            Console.WriteLine();
+            //string logSnippet = "[GridController][Orders_Read] =>";
+            //Console.WriteLine();
+            //foreach (var order in result)
+            //{
+            //    Console.WriteLine($"{logSnippet} (order.ShipName): '{order.ShipName}'");
+            //}
+            //Console.WriteLine();
 
             var dsResult = result.ToDataSourceResult(request);
             return Json(dsResult);
