@@ -98,6 +98,7 @@ _[Ss]cripts
 # App Settings
 ###################
 *appsettings.json
+*.json
 ###################
 # CSV Files
 ###################
