@@ -16,7 +16,7 @@
 </style>
 
 <script id="days-to-resolve-tickets-bar-template" type="text/x-kendo-template">
-    @(Html.Kendo().Chart<QMSChart>()
+    @(Html.Kendo().Chart<Qms_Web.Controllers.QMSChart>()
         .Name("days-to-resolve-tickets-bar")
         .Series(s => 
         {
@@ -31,7 +31,7 @@
     )
 </script>
 <script id="days-to-resolve-tickets-line-template" type="text/x-kendo-template">
-    @(Html.Kendo().Chart<QMSChart>()
+    @(Html.Kendo().Chart<Qms_Web.Controllers.QMSChart>()
         .Name("days-to-resolve-tickets-line")
         .Series(s => 
         {
@@ -46,7 +46,7 @@
     )
 </script>
 <script id="days-to-resolve-tickets-bar-template-multi" type="text/x-kendo-template">
-    @(Html.Kendo().Chart<QMSChart>()
+    @(Html.Kendo().Chart<Qms_Web.Controllers.QMSChart>()
         .Name("days-to-resolve-tickets-bar-multi")
         .Series(series => {
             series.Column(model => model.Value).Name("Organization 1").CategoryField("Key").Labels(labels => labels.Background("transparent").Visible(true));
@@ -62,7 +62,7 @@
     )
 </script>
 <script id="days-to-resolve-tickets-line-template-multi" type="text/x-kendo-template">
-    @(Html.Kendo().Chart<QMSChart>()
+    @(Html.Kendo().Chart<Qms_Web.Controllers.QMSChart>()
         .Name("days-to-resolve-tickets-line-multi")
         .Series(series => {
             series.Line(model => model.Value).Name("Organization 1").CategoryField("Key").Labels(labels => labels.Background("transparent").Visible(true));;
@@ -100,7 +100,7 @@
     )
 </script>
 <script id="totals-by-status-donut-template" type="text/x-kendo-template">
-    @(Html.Kendo().Chart<QMSChart>()
+    @(Html.Kendo().Chart<Qms_Web.Controllers.QMSChart>()
         .Name("totals-by-status-donut")
         .Series(s =>
             s.Donut(model => model.Value, model => model.Key)
@@ -136,7 +136,7 @@
     )
 </script>
 <script id="totals-by-organization-donut-template" type="text/x-kendo-template">
-    @(Html.Kendo().Chart<QMSChart>()
+    @(Html.Kendo().Chart<Qms_Web.Controllers.QMSChart>()
         .Name("totals-by-organization-donut")
         .Series(s =>
             s.Donut(model => model.Value, model => model.Key)
@@ -154,7 +154,7 @@
     )
 </script>
 <script id="days-to-resolve-tickets-once-at-pprm-bar-template" type="text/x-kendo-template">
-    @(Html.Kendo().Chart<QMSChart>()
+    @(Html.Kendo().Chart<Qms_Web.Controllers.QMSChart>()
         .Name("days-to-resolve-tickets-once-at-pprm-bar")
         .Series(s => 
         {
@@ -169,7 +169,7 @@
     )
 </script>
 <script id="days-to-resolve-tickets-once-at-pprm-line-template" type="text/x-kendo-template">
-    @(Html.Kendo().Chart<QMSChart>()
+    @(Html.Kendo().Chart<Qms_Web.Controllers.QMSChart>()
         .Name("days-to-resolve-tickets-once-at-pprm-line")
         .Series(s => 
         {
@@ -184,7 +184,7 @@
     )
 </script>
 <script id="tickets-by-organization-created-at-bar-template" type="text/x-kendo-template">
-    @(Html.Kendo().Chart<QMSChart>()
+    @(Html.Kendo().Chart<Qms_Web.Controllers.QMSChart>()
         .Name("tickets-by-organization-created-at-bar")
         .Series(s => 
         {
@@ -199,7 +199,7 @@
     )
 </script>
 <script id="tickets-by-organization-created-at-line-template" type="text/x-kendo-template">
-    @(Html.Kendo().Chart<QMSChart>()
+    @(Html.Kendo().Chart<Qms_Web.Controllers.QMSChart>()
         .Name("tickets-by-organization-created-at-line")
         .Series(s => 
         {
@@ -214,7 +214,7 @@
     )
 </script>
 <script id="tickets-by-noa-bar-template" type="text/x-kendo-template">
-    @(Html.Kendo().Chart<QMSChart>()
+    @(Html.Kendo().Chart<Qms_Web.Controllers.QMSChart>()
         .Name("tickets-by-noa-bar")
         .Series(s => 
         {
@@ -229,7 +229,7 @@
     )
 </script>
 <script id="tickets-by-noa-line-template" type="text/x-kendo-template">
-    @(Html.Kendo().Chart<QMSChart>()
+    @(Html.Kendo().Chart<Qms_Web.Controllers.QMSChart>()
         .Name("tickets-by-noa-line")
         .Series(s => 
         {
@@ -244,7 +244,7 @@
     )
 </script>
 <script id="error-type-counts-bar-template" type="text/x-kendo-template">
-    @(Html.Kendo().Chart<QMSChart>()
+    @(Html.Kendo().Chart<Qms_Web.Controllers.QMSChart>()
         .Name("error-type-counts-bar")
         .Series(s => 
         {
@@ -259,7 +259,7 @@
     )
 </script>
 <script id="error-type-counts-line-template" type="text/x-kendo-template">
-    @(Html.Kendo().Chart<QMSChart>()
+    @(Html.Kendo().Chart<Qms_Web.Controllers.QMSChart>()
         .Name("error-type-counts-line")
         .Series(s => 
         {
