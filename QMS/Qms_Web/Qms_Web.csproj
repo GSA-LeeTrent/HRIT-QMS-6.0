@@ -11,5 +11,9 @@
     <PackageReference Include="Telerik.DataSource" Version="2.1.1" />
     <PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2022.2.510" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Qms_Data\Qms_Data.csproj" />
+  </ItemGroup>
 
 </Project>

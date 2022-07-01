@@ -1,0 +1,65 @@
+##################################################################################################################
+# Qms_Data
+##################################################################################################################
+------------------------------------------------------------------------------------------------------------------
+-- Qms_Data.csproj (BEFORE):
+------------------------------------------------------------------------------------------------------------------
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.19" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.19">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference> 
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.19" /> 
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.19" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.19" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.19" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.2.7" />
+  </ItemGroup>
+------------------------------------------------------------------------------------------------------------------
+-- REMOVE OLD PACKAGES
+------------------------------------------------------------------------------------------------------------------
+cd Qms_Data
+dotnet clean
+dotnet list package
+dotnet remove package Microsoft.EntityFrameworkCore
+dotnet remove package Microsoft.EntityFrameworkCore.Design
+dotnet remove package Microsoft.EntityFrameworkCore.Proxies
+dotnet remove package Microsoft.EntityFrameworkCore.Relational
+dotnet remove package Microsoft.Extensions.Configuration
+dotnet remove package Microsoft.Extensions.Configuration.Json
+dotnet remove package Pomelo.EntityFrameworkCore.MySql
+------------------------------------------------------------------------------------------------------------------
+-- ADD NEW PACKAGES
+------------------------------------------------------------------------------------------------------------------
+dotnet add package Microsoft.EntityFrameworkCore --version 6.0.6
+dotnet add package Microsoft.EntityFrameworkCore.Design --version 6.0.6
+dotnet add package Microsoft.EntityFrameworkCore.Proxies --version 6.0.6
+dotnet add package Microsoft.EntityFrameworkCore.Relational --version 6.0.6
+dotnet add package Microsoft.Extensions.Configuration --version 6.0.1
+dotnet add package Microsoft.Extensions.Configuration.Json --version 6.0.0
+dotnet add package MySql.Data --version 8.0.29
+dotnet add package Pomelo.EntityFrameworkCore.MySql --version 6.0.1
+dotnet build
+------------------------------------------------------------------------------------------------------------------
+-- Qms_Data.csproj (AFTER)
+------------------------------------------------------------------------------------------------------------------
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.6">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+    <PackageReference Include="MySql.Data" Version="8.0.29" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.1" />
+  </ItemGroup>
+</Project>
+-----------------------------------------------------------------------------------------------------
