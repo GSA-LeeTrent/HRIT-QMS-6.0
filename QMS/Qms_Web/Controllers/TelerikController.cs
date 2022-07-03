@@ -1,11 +1,13 @@
 ﻿using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Qms_Web.Models;
 using System.Globalization;
 
 namespace Qms_Web.Controllers
 {
+    [Authorize(Roles = "SYS_ADMIN")]
     public class TelerikController : Controller
     {
         public IActionResult Index()
@@ -363,13 +365,13 @@ namespace Qms_Web.Controllers
             set;
         }
 
-        public string ShipCity
+        public string? ShipCity
         {
             get;
             set;
         }
 
-        public string ShipName
+        public string? ShipName
         {
             get;
             set;
