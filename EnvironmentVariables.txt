@@ -1,0 +1,28 @@
+#########################################################################################
+# Citrix Desktop DTDv9-3
+#########################################################################################
+# DEV - CMD
+#########################################################################################
+set ASPNETCORE_ENVIRONMENT=Development
+set APPSETTINGS_DIRECTORY=E:\Developers\LeeT\AppSettings
+set LOGFILE_DIRECTORY=E:\Developers\LeeT\Logs
+set LOCALHOST_EMAIL=lee.trent@gsa.gov
+set LOCALHOST_NAME=leettrent
+echo %APPSETTINGS_DIRECTORY%
+echo %LOGFILE_DIRECTORY%
+echo %ASPNETCORE_ENVIRONMENT%
+echo %LOCALHOST_EMAIL%
+echo %LOCALHOST_NAME%
+#########################################################################################
+# DEV - Git Bash
+#########################################################################################
+export ASPNETCORE_ENVIRONMENT=Development
+export APPSETTINGS_DIRECTORY=E:\\Developers\\LeeT\\AppSettings
+export LOGFILE_DIRECTORY=E:\\Developers\\LeeT\\Logs
+export LOCALHOST_EMAIL=lee.trent@gsa.gov
+export LOCALHOST_NAME=leettrent
+echo $APPSETTINGS_DIRECTORY
+echo $LOGFILE_DIRECTORY
+echo $ASPNETCORE_ENVIRONMENT
+echo $LOCALHOST_EMAIL
+echo $LOCALHOST_NAME
