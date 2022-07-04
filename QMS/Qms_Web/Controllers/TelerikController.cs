@@ -25,6 +25,11 @@ namespace Qms_Web.Controllers
             return View();
         }
 
+        public IActionResult Menu()
+        {
+            return View();
+        }
+
         public ActionResult Orders_Read([DataSourceRequest] DataSourceRequest request)
         {
             var result = Enumerable.Range(0, 50).Select(i => new TelerikViewModel
