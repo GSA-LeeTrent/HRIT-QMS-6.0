@@ -8,7 +8,7 @@ Thumbs.db
 ######################
 .vscode/
 .vs/
-*.sln
+#*.sln
 ###################
 # compiled source #
 ###################
@@ -96,7 +96,8 @@ _[Ss]cripts
 ###################
 # App Settings
 ###################
-*appsettings.json
+appsettings.json
+appsettings.Development.json
 ###################
 # CSV Files
 ###################
@@ -108,5 +109,5 @@ _[Ss]cripts
 #####################
 # launchSettings.json
 #####################
-Qms_Web/QMS/Properties/launchSettings.json
+launchSettings.json
 

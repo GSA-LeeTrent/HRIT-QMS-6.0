@@ -1,34 +1,40 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Qms_Web.Models;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
+using Qms_Web.Constants;
+using Qms_Web.Extensions;
+using QmsCore.Services;
+using QmsCore.UIModel;
 using System.Diagnostics;
+using System.Text;
 
 namespace Qms_Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IConfiguration _config;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IConfiguration configuration)
         {
-            _logger = logger;
+            _config = configuration;
         }
 
+        [HttpGet("/")]
+        [Authorize]
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+
+        [Authorize]
+        public IActionResult UnauthorizedAccess()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
 
+        [Authorize(Roles = "SYS_ADMINZZZZZZZZZZZZZZZZZZZZZZZZ")]
         public IActionResult ChangeLog()
         {
             return View();

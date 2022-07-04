@@ -32,22 +32,23 @@ namespace QmsCore.Model
 
         private Config()
         {
-			//string logSnippet = "[Qms_Data][BLL][Config.cs][Config90] =>";
+			string logSnippet = "[Qms_Data][BLL][Config.cs][Config90] =>";
 			
-			//Console.WriteLine($"{logSnippet} (APPSETTINGS_DIRECTORY): '{Environment.GetEnvironmentVariable("APPSETTINGS_DIRECTORY")}'");
-			
+			Console.WriteLine($"{logSnippet} (APPSETTINGS_DIRECTORY): '{Environment.GetEnvironmentVariable("APPSETTINGS_DIRECTORY")}'");
+            Console.WriteLine($"{logSnippet} (LOGFILE_DIRECTORY)....: '{Environment.GetEnvironmentVariable("LOGFILE_DIRECTORY")}'");
+
             var builder = new ConfigurationBuilder()
                              .SetBasePath(Environment.GetEnvironmentVariable("APPSETTINGS_DIRECTORY"))
                              .AddJsonFile("qms_appsettings.json", optional: false, reloadOnChange: true);
             AppSettings = builder.Build();
-			//Console.WriteLine($"{logSnippet} (DatabaseConnection)...: '{AppSettings["DatabaseConnection"]}'");		
- 			ReconDB = AppSettings["DatabaseConnection"];
 			
-			//Console.WriteLine($"{logSnippet} (ReconDB)...: '{ReconDB}'");
+            Console.WriteLine($"{logSnippet} (DatabaseConnection)...: '{AppSettings["DatabaseConnection"]}'");		
+ 			
+            ReconDB = AppSettings["DatabaseConnection"];
+			Console.WriteLine($"{logSnippet} (ReconDB)...: '{ReconDB}'");
 
-            //LogDirectory = AppSettings.GetSection("AppSettings")["LogDirectory"];
             LogDirectory = Environment.GetEnvironmentVariable("LOGFILE_DIRECTORY");
-            //Console.WriteLine($"{logSnippet} (LogDirectory)...: '{LogDirectory}'");
+            Console.WriteLine($"{logSnippet} (LogDirectory)...: '{LogDirectory}'");
         }
 
         public void Rebuild(string configFileName)
