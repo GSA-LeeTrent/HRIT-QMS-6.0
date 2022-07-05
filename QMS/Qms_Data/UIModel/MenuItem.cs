@@ -14,6 +14,8 @@ namespace QmsCore.UIModel
         public string ControllerAction {get;set;}
         public string UseCase {get;set;}
 
+        public string Name {  get { return this.Title; } }
+
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder("MenuItem = { ");
