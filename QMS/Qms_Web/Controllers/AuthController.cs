@@ -16,14 +16,16 @@ namespace Qms_Web.Controllers
     {
         private readonly IWebHostEnvironment _hostingEnv;
         private readonly IUserService _userService;
+        private readonly IMenuBuilderService _menuBuilderService;
 
         /////////////////////////////////////////////////////////////////////////////////////////
         // CONSTRUCTOR
         /////////////////////////////////////////////////////////////////////////////////////////
-        public AuthController(IWebHostEnvironment hostingEnv, IUserService userService)
+        public AuthController(IWebHostEnvironment hostingEnv, IUserService userService, IMenuBuilderService menuBuilderService)
         {
             _hostingEnv = hostingEnv;
             _userService = userService;
+            _menuBuilderService = menuBuilderService;
         }
 
         [HttpGet("unauthorized")]
@@ -86,7 +88,19 @@ namespace Qms_Web.Controllers
                 User qmsUser = _userService.RetrieveByEmailAddress(localhostEmail);
                 var claimsPrincipal = AuthHelper.CreateClaimsPrincipal(qmsUser, localhostName, localhostEmail);
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
-                HttpContext.Session.SetObject(AuthConstants.USER_SESSION_KEY, qmsUser);
+                HttpContext.Session.SetObject(QmsConstants.USER_SESSION_KEY, qmsUser);
+                ////////////////////////////////////////////////////////////////////////////
+                
+                ////////////////////////////////////////////////////////////////////////////
+                // QMS Navigation Menu APPEARING ON ALL PAGES
+                ////////////////////////////////////////////////////////////////////////////
+                List<ModuleMenuItem> moduleMenuItems = _menuBuilderService.RetrieveMenuForUser(qmsUser.UserId);
+                HttpContext.Session.SetObject(QmsConstants.MODULE_MENU_ITEMS_SESSION_KEY, moduleMenuItems);
+                ////////////////////////////////////////////////////////////////////////////
+
+
+
+
                 return Redirect(returnUrl);
             }
             return View("login");

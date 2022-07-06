@@ -1,0 +1,22 @@
+﻿@model IEnumerable<QmsCore.UIModel.ModuleMenuItem>
+
+<div class="demo-section wide">
+    @(Html.Kendo().Menu()
+      .Name("QmsMenu")
+      .BindTo(Model, mappings =>
+      {
+          mappings.For<QmsCore.UIModel.ModuleMenuItem>(binding => binding
+                  .ItemDataBound((item, category) =>
+                  {
+                      item.Text = category.Title;
+                  })
+                  .Children(category => category.MenuItems));
+          mappings.For<QmsCore.UIModel.MenuItem>(binding => binding
+                  .ItemDataBound((item, product) =>
+                  {
+                      item.Text = product.Title;
+                      item.Action(product.ControllerAction, product.Controller, new {});
+                  }));
+      })
+    )
+</div>
