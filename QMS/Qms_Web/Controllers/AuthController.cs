@@ -44,6 +44,7 @@ namespace Qms_Web.Controllers
         public async Task<IActionResult> LogoutAsync()
         {
             await HttpContext.SignOutAsync();
+            HttpContext.Session.Clear();
             return Redirect("/");
         }
 
