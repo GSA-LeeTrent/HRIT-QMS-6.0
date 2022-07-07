@@ -39,5 +39,10 @@ namespace Qms_Web.Controllers
         {
             return View();
         }
+
+        public IActionResult Error(string message)
+        {
+            return View(message);
+        }
     }
 }

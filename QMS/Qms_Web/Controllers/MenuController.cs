@@ -1,6 +1,8 @@
 ﻿using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Qms_Web.Constants;
+using Qms_Web.Extensions;
 using QmsCore.Services;
 using QmsCore.UIModel;
 using System.Text;
@@ -24,7 +26,11 @@ namespace Qms_Web.Controllers
 
         public ActionResult Menu_Read([DataSourceRequest] DataSourceRequest request)
         {
-            List<ModuleMenuItem> parentMenus = _menuBuilderService.RetrieveMenuForUser(140);
+            List<ModuleMenuItem> parentMenus = HttpContext.Session.GetObject<List<ModuleMenuItem>>(QmsConstants.MODULE_MENU_ITEMS_SESSION_KEY)!;
+            if ( parentMenus == null)
+            {
+                return View(new List<ModuleMenuItem>());
+            }
 
             foreach (var parentMenu in parentMenus)
             {
@@ -47,12 +53,12 @@ namespace Qms_Web.Controllers
                 }
             }
  
-            foreach (var parentMenu in parentMenus)
-            {
-                System.Console.WriteLine();
-                System.Console.WriteLine(parentMenu);
-                System.Console.WriteLine();
-            }
+            //foreach (var parentMenu in parentMenus)
+            //{
+            //    System.Console.WriteLine();
+            //    System.Console.WriteLine(parentMenu);
+            //    System.Console.WriteLine();
+            //}
 
             return Json(parentMenus);
         }
