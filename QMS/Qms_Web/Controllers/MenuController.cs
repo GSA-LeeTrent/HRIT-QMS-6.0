@@ -30,6 +30,10 @@ namespace Qms_Web.Controllers
                 List<QmsCore.UIModel.MenuItem> childMenus = parentMenu.MenuItems;
                 foreach (var childMenu in childMenus)
                 {
+                    if (childMenu.Controller.Equals("User2"))       {childMenu.Controller = "UserAdmin";}
+                    if (childMenu.Controller.Equals("Role"))        {childMenu.Controller = "RoleAdmin";}
+                    if (childMenu.Controller.Equals("Permission"))  {childMenu.Controller = "PermissionAdmin";}
+
                     childMenu.MenuUrlField = Url.Action(childMenu.ControllerAction, childMenu.Controller);
                 }
             }

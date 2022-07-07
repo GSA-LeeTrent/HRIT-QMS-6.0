@@ -2,7 +2,7 @@
 
 namespace Qms_Web.Controllers
 {
-    public class UserAdminContoller : Controller
+    public class UserAdminController : Controller
     {
         public IActionResult Index()
         {
