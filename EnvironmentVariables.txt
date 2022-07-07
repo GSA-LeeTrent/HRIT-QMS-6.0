@@ -26,3 +26,6 @@ echo $LOGFILE_DIRECTORY
 echo $ASPNETCORE_ENVIRONMENT
 echo $LOCALHOST_EMAIL
 echo $LOCALHOST_NAME
+alias cls="clear"
+alias dn="dotnet"
+alias g="git"

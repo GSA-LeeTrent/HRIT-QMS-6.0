@@ -14,6 +14,10 @@ namespace QmsCore.UIModel
         public string ControllerAction {get;set;}
         public string UseCase {get;set;}
 
+        public string Name {  get { return this.Title; } }
+
+        public string MenuUrlField { get; set; }
+
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder("MenuItem = { ");
@@ -25,6 +29,8 @@ namespace QmsCore.UIModel
             sb.Append(this.ControllerAction);
             sb.Append(", UseCase: ");
             sb.Append(this.UseCase);
+            sb.Append(", MenuUrlField: ");
+            sb.Append(this.MenuUrlField);
             sb.Append("}");
             return sb.ToString();
         }

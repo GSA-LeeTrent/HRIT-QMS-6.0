@@ -34,10 +34,15 @@ namespace Qms_Web.Controllers
         }
 
 
-        [Authorize(Roles = "SYS_ADMINZZZZZZZZZZZZZZZZZZZZZZZZ")]
+        [Authorize(Roles = "SYS_ADMIN")]
         public IActionResult ChangeLog()
         {
             return View();
+        }
+
+        public IActionResult Error(string message)
+        {
+            return View(message);
         }
     }
 }
