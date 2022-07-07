@@ -16,7 +16,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Qms_Web</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -57,6 +57,15 @@
             </div>
         </nav>
     </header>
+    <div class="demo-section wide">
+        @(Html.Kendo().Menu()
+                .Name("QmsMenu")
+                .DataTextField("Title")
+                .DataUrlField("MenuUrlField")
+                .DataSource(ds => ds.Read("Menu_Read", "Menu")
+                .Model(model => model.Children("MenuItems")))
+        )
+    </div>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
