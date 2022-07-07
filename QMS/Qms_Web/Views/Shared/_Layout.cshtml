@@ -54,21 +54,23 @@
             </div>
         </nav>
     </header>
-    <div class="demo-section wide">
-        @(Html.Kendo().Menu()
-                .Name("QmsMenu")
-                .DataTextField("Title")
-                .DataUrlField("MenuUrlField")
-                .DataSource(ds => ds.Read("Menu_Read", "Menu")
-                .Model(model => model.Children("MenuItems")))
-        )
-    </div>
+    @if (User!.Identity!.IsAuthenticated)
+    {
+        <div class="demo-section wide">
+            @(Html.Kendo().Menu()
+                    .Name("QmsMenu")
+                    .DataTextField("Title")
+                    .DataUrlField("MenuUrlField")
+                    .DataSource(ds => ds.Read("Menu_Read", "Menu")
+                    .Model(model => model.Children("MenuItems")))
+            )
+        </div>
+    }
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2022 - Qms_Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
