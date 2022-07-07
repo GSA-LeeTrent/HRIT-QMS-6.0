@@ -4,8 +4,9 @@ namespace Qms_Web.Controllers
 {
     public class CorrectiveActionsController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(string useCase)
         {
+            ViewData["UseCase"] = useCase;
             return View();
         }
     }
