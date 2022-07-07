@@ -8,6 +8,7 @@
     @(Html.Kendo().Menu()
             .Name("QmsMenu")
             .DataTextField("Title")
+            .DataUrlField("MenuUrlField")
             .DataSource(ds => ds.Read("Menu_Read", "Menu")
             .Model(model => model.Children("MenuItems")))
     )
