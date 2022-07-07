@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QmsCore.Services;
 using QmsCore.UIModel;
+using System.Text;
 
 namespace Qms_Web.Controllers
 {
@@ -34,7 +35,20 @@ namespace Qms_Web.Controllers
                     if (childMenu.Controller.Equals("Role"))        {childMenu.Controller = "RoleAdmin";}
                     if (childMenu.Controller.Equals("Permission"))  {childMenu.Controller = "PermissionAdmin";}
 
-                    childMenu.MenuUrlField = Url.Action(childMenu.ControllerAction, childMenu.Controller);
+                    if (string.IsNullOrEmpty(childMenu.UseCase) == false && string.IsNullOrWhiteSpace(childMenu.UseCase) == false)
+                    {
+                        //StringBuilder sb = new StringBuilder(childMenu.ControllerAction);
+                        //sb.Append("?UseCase=");
+                        //sb.Append(childMenu.UseCase);
+                        //childMenu.ControllerAction = sb.ToString();
+                        childMenu.MenuUrlField = Url.Action(childMenu.ControllerAction, childMenu.Controller, new { UseCase=childMenu.UseCase });
+                    }
+                    else
+                    {
+                        childMenu.MenuUrlField = Url.Action(childMenu.ControllerAction, childMenu.Controller);
+                    }
+
+                    
                 }
             }
  
