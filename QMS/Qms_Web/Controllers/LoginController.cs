@@ -283,15 +283,17 @@ namespace Qms_Web.Controllers
             Console.WriteLine(logSnippet + $"(Request.PathBase): '{Request.PathBase}'");
             Console.WriteLine(logSnippet + $"(requestedUri)....: '{requestedUri}'");
 
-            string? redirectUrl = null;
-            if (requestedUri.Equals("/") )
-            {
-                redirectUrl = $"https://{Request.Host}{Request.PathBase}";
-            }
-            else
-            {
-                redirectUrl = $"https://{Request.Host}{Request.PathBase}/{requestedUri}";
-            }         
+            //string? redirectUrl = null;
+            //if (requestedUri.Equals("/") )
+            //{
+            //    redirectUrl = $"https://{Request.Host}{Request.PathBase}";
+            //}
+            //else
+            //{
+            //    redirectUrl = $"https://{Request.Host}{Request.PathBase}/{requestedUri}";
+            //}
+            
+            string redirectUrl = $"https://{Request.Host}{Request.PathBase}{requestedUri}";
             Console.WriteLine(logSnippet + $"(redirectUrl).....: '{redirectUrl}'");
 
             if (string.IsNullOrEmpty(requestedUri) == false && string.IsNullOrWhiteSpace(requestedUri) == false)
