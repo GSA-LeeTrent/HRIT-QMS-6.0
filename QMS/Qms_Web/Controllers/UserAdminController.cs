@@ -9,16 +9,16 @@ namespace Qms_Web.Controllers
             return View();
         }
 
-        public IActionResult ActiveUsers()
+        public IActionResult _ActiveUsers()
         {
             Console.WriteLine("\n[UserAdminController][ActiveUsers] =>\n");
-            return View();
+            return PartialView();
         }
 
-        public IActionResult InactiveUsers()
+        public IActionResult _InactiveUsers()
         {
             Console.WriteLine("\n[UserAdminController][InactiveUsers] =>\n");
-            return View();
+            return PartialView();
         }
     }
 }

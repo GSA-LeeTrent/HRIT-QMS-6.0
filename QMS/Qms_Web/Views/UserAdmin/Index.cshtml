@@ -10,13 +10,26 @@
     <items>
         <tabstrip-item text="Active">
             <content>
-                <partial name="ActiveUsers" />
+                <partial name="_ActiveUsers" />
             </content>
         </tabstrip-item>
         <tabstrip-item text="Inactive">
             <content>
-                <partial name="InactiveUsers" />
+                <partial name="_InactiveUsers" />
             </content>
         </tabstrip-item>
     </items>
 </kendo-tabstrip>
+
+
+@(Html.Kendo().TabStrip()
+    .Name("tabstrip")
+    .Items(tabstrip =>
+    {
+        tabstrip.Add().Text("Active")
+            .LoadContentFrom(Url.Action("_ActiveUsers", "UserAdmin"));
+
+        tabstrip.Add().Text("Inactive")
+            .LoadContentFrom(Url.Action("_InactiveUsers", "UserAdmin"));
+    })
+)
