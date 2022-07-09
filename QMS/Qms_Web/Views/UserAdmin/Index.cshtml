@@ -4,4 +4,19 @@
 @{
 }
 
-<h1>User Admin Index Page</h1>
+<h1 class="display-6 mt-3 text-center">User Administration</h1>
+
+<kendo-tabstrip name="user-admin-tabstrip">
+    <items>
+        <tabstrip-item text="Active">
+            <content>
+                <partial name="ActiveUsers" />
+            </content>
+        </tabstrip-item>
+        <tabstrip-item text="Inactive">
+            <content>
+                <partial name="InactiveUsers" />
+            </content>
+        </tabstrip-item>
+    </items>
+</kendo-tabstrip>
