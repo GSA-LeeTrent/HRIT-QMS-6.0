@@ -6,22 +6,6 @@
 
 <h1 class="display-6 mt-3 text-center">User Administration</h1>
 
-<kendo-tabstrip name="user-admin-tabstrip">
-    <items>
-        <tabstrip-item text="Active">
-            <content>
-                <partial name="_ActiveUsers" />
-            </content>
-        </tabstrip-item>
-        <tabstrip-item text="Inactive">
-            <content>
-                <partial name="_InactiveUsers" />
-            </content>
-        </tabstrip-item>
-    </items>
-</kendo-tabstrip>
-
-
 @(Html.Kendo().TabStrip()
     .Name("tabstrip")
     .Items(tabstrip =>
