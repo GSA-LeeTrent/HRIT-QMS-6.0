@@ -1,19 +1,25 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
 @{
-}
+    var showUserAdminActiveTabString = ViewData["ShowUserAdminActiveTab"] as string;
+    var showUserAdminInactiveTabString = ViewData["ShowUserAdminInactiveTab"] as string;
 
+    bool showUserAdminActiveTab = Convert.ToBoolean(showUserAdminActiveTabString);
+    bool showUserAdminInactiveTab = Convert.ToBoolean(showUserAdminInactiveTabString);
+
+
+}
 <h1 class="display-6 mt-3 text-center">User Administration</h1>
 
 @(Html.Kendo().TabStrip()
-    .Name("tabstrip")
+    .Name("user-admin-tabstrip")
     .Items(tabstrip =>
     {
         tabstrip.Add().Text("Active")
-            .LoadContentFrom(Url.Action("_ActiveUsers", "UserAdmin"));
+            .LoadContentFrom(Url.Action("_ActiveUsers", "UserAdmin"))
+            .Selected(@showUserAdminActiveTab);
 
         tabstrip.Add().Text("Inactive")
-            .LoadContentFrom(Url.Action("_InactiveUsers", "UserAdmin"));
+            .LoadContentFrom(Url.Action("_InactiveUsers", "UserAdmin"))
+            .Selected(@showUserAdminInactiveTab);
     })
 )
