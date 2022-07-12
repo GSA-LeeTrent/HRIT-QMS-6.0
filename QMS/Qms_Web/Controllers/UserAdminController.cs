@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
 using QmsCore.Services;
@@ -7,6 +8,7 @@ using Qms_Web.Models;
 
 namespace Qms_Web.Controllers
 {
+    [Authorize(Roles = "SYS_ADMIN")]
     public class UserAdminController : Controller
     {
         private readonly IUserService _userService;
