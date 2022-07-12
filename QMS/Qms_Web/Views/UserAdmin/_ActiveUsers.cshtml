@@ -1,10 +1,13 @@
 ﻿@model Qms_Web.Models.PagerViewModel
 
-<button class="k-button k-button-solid k-button-md k-rounded-md k-button-solid-base k-icon-button mb-1">
-    <span class="k-button-icon k-icon k-i-plus"></span>
-    <span class="k-button-text">Add New User</span>
-</button>
-<div class="row">
+@(Html.Kendo().Button()
+    .Name("kendoIconButtonmmmm")
+    .HtmlAttributes(new { type = "button" })
+    .ThemeColor(ThemeColor.Primary)
+    .Icon("k-button-icon k-icon k-i-plus")
+    .Content("Add New User")
+)
+<div class="row mt-1">
     <div class="col-12">
         @(Html.Kendo().Grid <QmsCore.UIModel.User>()
             .Name("active-users-grid")
