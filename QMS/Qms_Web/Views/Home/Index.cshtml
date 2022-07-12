@@ -1,2 +1,61 @@
 ﻿<h1 class="h4 mt-5">QMS Index Page</h1>
 <p>Branch: UserAdminDev</p>
+
+<hr class="mt-5" />
+
+
+<div class="demo-section">
+    @(Html.Kendo().Button()
+                .Name("iconButton")
+                .HtmlAttributes(new { type = "button" })
+                .SpriteCssClass("k-icon netherlandsFlag")
+                .Content("Sprite icon"))
+
+    @(Html.Kendo().Button()
+                .Name("kendoIconButton")
+                .HtmlAttributes(new { type = "button" })
+                .Icon("k-i-plus")
+                .Content("Kendo UI Font Icon"))
+
+    @(Html.Kendo().Button()
+                .Name("imageButton")
+                .HtmlAttributes(new { type = "button" })
+                .ImageUrl(Url.Content("~/shared/icons/sports/snowboarding.png"))
+                .Content("Image icon"))
+</div>
+
+<hr class="mt-5" />
+<button class="k-button k-button-solid k-button-md k-rounded-md k-button-solid-base">
+    <span class="k-button-icon k-icon k-i-folder"></span>
+    <span class="k-button-text">Button</span>
+</button>
+
+<button class="k-button k-button-solid k-button-md k-rounded-md k-button-solid-base k-icon-button">
+    <span class="k-button-icon k-icon k-i-folder"></span>
+</button>
+
+                
+<button class="k-button k-button-solid k-button-md k-rounded-md k-button-solid-base k-icon-button">
+    <span class="k-button-icon k-icon k-i-plus"></span>
+    <span class="k-button-text">Add</span>
+</button>
+
+<button class="k-button k-button-solid k-button-md k-rounded-md k-button-solid-base k-icon-button">
+    <span class="k-button-icon k-icon k-i-plus"></span>
+    <span class="k-button-text">Add New User</span>
+</button>
+
+<button class="k-button k-button-solid k-button-md k-rounded-md k-button-solid-base k-icon-button">
+    <span class="k-button-icon k-icon k-i-plus"></span>
+    <span class="k-button-text">Add New QMS User</span>
+</button>
+
+<hr class="mt-5" />
+<div class="demo-section">
+@(Html.Kendo().Button()
+            .Name("kendoIconButtonmmmm")
+            .HtmlAttributes(new { type = "button" })
+            .ThemeColor(ThemeColor.Primary)
+            .Icon("k-button-icon k-icon k-i-plus")
+            .Content("Add New User"))
+</div>

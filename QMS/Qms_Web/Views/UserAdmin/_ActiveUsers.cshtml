@@ -1,5 +1,9 @@
 ﻿@model Qms_Web.Models.PagerViewModel
 
+<button class="k-button k-button-solid k-button-md k-rounded-md k-button-solid-base k-icon-button mb-1">
+    <span class="k-button-icon k-icon k-i-plus"></span>
+    <span class="k-button-text">Add New User</span>
+</button>
 <div class="row">
     <div class="col-12">
         @(Html.Kendo().Grid <QmsCore.UIModel.User>()
