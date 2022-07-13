@@ -1,12 +1,5 @@
 ﻿@model Qms_Web.Models.PagerViewModel
 
-@(Html.Kendo().Button()
-    .Name("button-add-user")
-    .HtmlAttributes(new { type = "button" })
-    .ThemeColor(ThemeColor.Primary)
-    .Icon("k-button-icon k-icon k-i-plus")
-    .Content("Add New User")
-)
 <div class="row mt-1">
     <div class="col-12">
         @(Html.Kendo().Grid <QmsCore.UIModel.User>()
@@ -18,6 +11,8 @@
                 columns.Bound(p => p.OrganizationName);
                 columns.Bound(p => p.ManagerName);
             })
+            .ToolBar(toolbar => toolbar.Create())
+            .Editable(editable => editable.Mode(GridEditMode.PopUp))
             .Sortable()
             .Filterable()
             .Pageable(pager => pager
