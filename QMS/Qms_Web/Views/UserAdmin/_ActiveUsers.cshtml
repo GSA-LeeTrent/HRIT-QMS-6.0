@@ -12,7 +12,7 @@
                 columns.Bound(p => p.ManagerName);
             })
             .ToolBar(toolbar => toolbar.Create())
-            .Editable(editable => editable.Mode(GridEditMode.PopUp))
+            .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("UserCreatePopupEditor"))
             .Sortable()
             .Filterable()
             .Pageable(pager => pager
@@ -27,6 +27,7 @@
                 .Ajax()
                 .PageSize(20)
                 .Read(read => read.Action("ActiveUsers_Read", "UserAdmin"))
+                .Create(update => update.Action("AddNewUser", "UserAdmin"))
            )
         )
     </div>
