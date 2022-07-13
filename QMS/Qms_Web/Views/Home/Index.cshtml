@@ -12,16 +12,6 @@
     .Events(ev => ev.Click("createAndShowPopup"))
 )
 
-<div id="windowForAssign"></div>
-
-<hr class="mt-5" />
-<h4>Bootstrap</h4>
-<hr />
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Launch demo modal
-</button>
-
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -44,23 +34,8 @@
 @section Scripts {
     <script>
         function createAndShowPopup() {
-            var kendoWindowAssign = $("#windowForAssign");
-            kendoWindowAssign.kendoWindow({
-                width: "650px",
-                modal: true,
-                height: '120px',    
-                iframe: true,
-                resizable: false,
-                title: "Add New QMS User",
-                content: "https/google.com",
-                visible: false
-            });
-
-            var popup = $("#windowForAssign").data('kendoWindow');
-            popup.open();
-            popup.center();
-    }
-    </script>
-    <script>
+            var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
+            myModal.show()
+    }   
     </script>
 }
