@@ -1,0 +1,12 @@
+﻿    @if (User != null && User.Identity != null && User.Identity.IsAuthenticated)
+    {
+        <div class="demo-section wide">
+            @(Html.Kendo().Menu()
+                    .Name("QmsMenu")
+                    .DataTextField("Title")
+                    .DataUrlField("MenuUrlField")
+                    .DataSource(ds => ds.Read("Menu_Read", "Menu")
+                    .Model(model => model.Children("MenuItems")))
+            )
+        </div>
+    }
