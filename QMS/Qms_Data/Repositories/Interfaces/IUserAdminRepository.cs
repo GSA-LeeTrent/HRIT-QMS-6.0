@@ -1,0 +1,15 @@
+﻿using QmsCore.Model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Qms_Data.Repositories.Interfaces
+{
+    public interface IUserAdminRepository
+    {
+        public IQueryable<SecUser> RetrieveActiveUsers();
+        public IQueryable<SecUser> RetrieveInactiveUsers();
+    }
+}

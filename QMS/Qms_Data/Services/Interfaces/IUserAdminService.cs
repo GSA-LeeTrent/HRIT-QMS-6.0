@@ -1,0 +1,15 @@
+﻿using Qms_Data.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Qms_Data.Services.Interfaces
+{
+    public interface IUserAdminService
+    {
+        public IList<UserListRowVM> RetrieveActiveUsers();
+        public IList<UserListRowVM> RetrieveInactiveUsers();
+    }
+}

@@ -2,21 +2,20 @@
 using Microsoft.AspNetCore.Authorization;
 using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
-using QmsCore.Services;
-using QmsCore.UIModel;
+using Qms_Data.Services.Interfaces;
 using Qms_Web.Models;
+using Qms_Data.ViewModels;
 
 namespace Qms_Web.Controllers
 {
     [Authorize(Roles = "SYS_ADMIN")]
     public class UserAdminController : Controller
     {
-        private readonly IUserService _userService;
+        private readonly IUserAdminService _userAdminService;
 
-        public UserAdminController(IUserService userService)
+        public UserAdminController(IUserAdminService userAdminService)
         {
-            Console.WriteLine("\n[UserAdminController][Constructor] =>");
-            _userService = userService;
+            _userAdminService = userAdminService;
         }
 
         public IActionResult Index()
@@ -51,7 +50,7 @@ namespace Qms_Web.Controllers
         {
             Console.WriteLine("\n[UserAdminController][ActiveUsers_Read] =>");
 
-            List<User> activeUsers = _userService.RetrieveActiveUsers();
+            IList<UserListRowVM> activeUsers = _userAdminService.RetrieveActiveUsers();
             var dsResult = activeUsers.ToDataSourceResult(request);
             return Json(dsResult);
         }
@@ -79,7 +78,7 @@ namespace Qms_Web.Controllers
         {
             Console.WriteLine("\n[UserAdminController][InactiveUsers_Read] =>");
 
-            List<User> inactiveUsers = _userService.RetrieveInactiveUsers();
+            IList<UserListRowVM> inactiveUsers = _userAdminService.RetrieveInactiveUsers();
             var dsResult = inactiveUsers.ToDataSourceResult(request);
             return Json(dsResult);
         }
