@@ -19,24 +19,16 @@ namespace Qms_Data.Services
 
         public IList<UserListRowVM> RetrieveActiveUsers()
         {
-            IQueryable<SecUser> entities = _repository.RetrieveActiveUsers();
-            IList<UserListRowVM> viewModels = new List<UserListRowVM>();
-            foreach (SecUser entity in entities)
-            {
-                viewModels.Add(new UserListRowVM (
-                    (int)entity.UserId,
-                    entity.EmailAddress,
-                    entity.DisplayName,
-                    (entity.Org == null) ? "" : entity.Org.OrgLabel,
-                    (entity.Manager == null) ? "" : entity.Manager.DisplayName)
-                );
-            }
-            return viewModels;
+            return this.mapToViewModel(_repository.RetrieveActiveUsers());
         }
 
         public IList<UserListRowVM> RetrieveInactiveUsers()
         {
-            IQueryable<SecUser> entities = _repository.RetrieveInactiveUsers();
+            return this.mapToViewModel(_repository.RetrieveInactiveUsers());
+        }
+
+        private IList<UserListRowVM> mapToViewModel(IQueryable<SecUser> entities)
+        {
             IList<UserListRowVM> viewModels = new List<UserListRowVM>();
             foreach (SecUser entity in entities)
             {
