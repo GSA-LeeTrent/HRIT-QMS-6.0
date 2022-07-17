@@ -1,0 +1,31 @@
+﻿@model Qms_Web.Models.PagerViewModel
+
+<div class="row">
+    <div class="col-12">
+        @(Html.Kendo().Grid <QmsCore.UIModel.User>()
+            .Name("inactive-users-grid")
+            .Columns(columns =>
+            {
+                columns.Bound(p => p.EmailAddress);
+                columns.Bound(p => p.DisplayName);
+                columns.Bound(p => p.OrganizationName);
+                columns.Bound(p => p.ManagerName);
+            })
+            .Sortable()
+            .Filterable()
+            .Pageable(pager => pager
+                .Input(Model.Input)
+                .Numeric(Model.Numeric)
+                .Info(Model.Info)
+                .PreviousNext(Model.PreviousNext)
+                .Refresh(Model.Refresh)
+                .PageSizes(Model.PageSizes)
+            )
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(20)
+                .Read(read => read.Action("InactiveUsers_Read", "UserAdmin"))
+           )
+        )
+    </div>
+</div>

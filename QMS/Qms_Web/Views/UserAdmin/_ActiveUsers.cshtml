@@ -1,0 +1,37 @@
+﻿@model Qms_Web.Models.PagerViewModel
+
+<div class="row">
+    <div class="col-12">
+        @(Html.Kendo().ToolBar().Name("ActiveUsersToolBar")
+            .Items(items =>
+            {
+                items.Add().Type(CommandType.Button).Text("Add New User").Icon("k-button-icon k-icon k-i-plus").Togglable(true);
+            })
+        )
+        @(Html.Kendo().Grid <QmsCore.UIModel.User>()
+            .Name("active-users-grid")
+            .Columns(columns =>
+            {
+                columns.Bound(p => p.EmailAddress);
+                columns.Bound(p => p.DisplayName);
+                columns.Bound(p => p.OrganizationName);
+                columns.Bound(p => p.ManagerName);
+            })
+            .Sortable()
+            .Filterable()
+            .Pageable(pager => pager
+                .Input(Model.Input)
+                .Numeric(Model.Numeric)
+                .Info(Model.Info)
+                .PreviousNext(Model.PreviousNext)
+                .Refresh(Model.Refresh)
+                .PageSizes(Model.PageSizes)
+            )
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(20)
+                .Read(read => read.Action("ActiveUsers_Read", "UserAdmin"))
+           )
+        )
+    </div>
+</div>
