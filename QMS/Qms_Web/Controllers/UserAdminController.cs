@@ -101,7 +101,7 @@ namespace Qms_Web.Controllers
                 Mutatatable = true,
                 Deactivatable = false,
                 Reactivatable = false,
-                AspAction = "Create",
+                AspAction = "CreateUser",
                 SubmitButtonLabel = "Create",
                 CardHeader = "Add New User:"
             };

@@ -56,8 +56,8 @@
                 @if (@Model.Mutatatable)
                 {
                     <input type="hidden" asp-for="UserId" />
-                    <button class="btn btn-primary" type="submit">@Model.SubmitButtonLabel</button>
-                    <a class="btn btn-outline-secondary ml-2" asp-controller="User" asp-action="Index">Cancel</a>
+                    <button class="k-button k-button-md k-rounded-md k-button-solid k-button-solid-primary" type="submit">@Model.SubmitButtonLabel</button>
+                    <a class="k-button k-button-md k-rounded-md k-button-solid k-button-solid-secondary ml-1" asp-controller="User" asp-action="Index">Cancel</a>
                 }
                 else
                 {
