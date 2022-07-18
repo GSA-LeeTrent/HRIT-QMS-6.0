@@ -21,7 +21,7 @@
     }
 }
 
-    <h1 class="display-6 mt-3" style="font-size:2rem;">@Model.CardHeader</h1>
+    <h1 class="display-6 mt-4" style="font-size:1.9rem;">@Model.CardHeader</h1>
     <div class="card w-75">
         <div class="card-body">
             <form asp-controller="UserAdmin" asp-action="@Model.AspAction" method="POST" id="createOrUpdateUserForm">
@@ -57,7 +57,7 @@
                 {
                     <input type="hidden" asp-for="UserId" />
                     <button class="btn btn-primary" type="submit">@Model.SubmitButtonLabel</button>
-                    <a class="btn btn-light ml-1" asp-controller="User2" asp-action="Index">Cancel</a>
+                    <a class="btn btn-outline-secondary ml-2" asp-controller="User" asp-action="Index">Cancel</a>
                 }
                 else
                 {
