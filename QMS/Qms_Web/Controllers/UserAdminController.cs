@@ -103,7 +103,7 @@ namespace Qms_Web.Controllers
                 Reactivatable = false,
                 AspAction = "Create",
                 SubmitButtonLabel = "Create",
-                CardHeader = "Create QMS User:"
+                CardHeader = "Add New User:"
             };
 
             // ORGANIZATIONS
