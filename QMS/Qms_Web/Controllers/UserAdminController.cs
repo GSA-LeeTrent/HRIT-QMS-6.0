@@ -5,6 +5,10 @@ using Kendo.Mvc.Extensions;
 using Qms_Data.Services.Interfaces;
 using Qms_Web.Models;
 using Qms_Data.ViewModels;
+using Qms_Web.ViewModels;
+using QmsCore.Services;
+using QmsCore.UIModel;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Qms_Web.Controllers
 {
@@ -12,10 +16,12 @@ namespace Qms_Web.Controllers
     public class UserAdminController : Controller
     {
         private readonly IUserAdminService _userAdminService;
+        private readonly IOrganizationService _organizationService;
 
-        public UserAdminController(IUserAdminService userAdminService)
+        public UserAdminController(IUserAdminService userAdminService, IOrganizationService organizationService)
         {
             _userAdminService = userAdminService;
+            _organizationService = organizationService;
         }
 
         public IActionResult Index()
@@ -81,6 +87,39 @@ namespace Qms_Web.Controllers
             IList<UserListRowVM> inactiveUsers = _userAdminService.RetrieveInactiveUsers();
             var dsResult = inactiveUsers.ToDataSourceResult(request);
             return Json(dsResult);
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////
+        // CREATE  USER
+        ////////////////////////////////////////////////////////////////////////////////
+
+        [HttpGet]
+        public IActionResult CreateUser()
+        {
+            UserAdminFormVM uaFormVM = new UserAdminFormVM()
+            {
+                Mutatatable = true,
+                Deactivatable = false,
+                Reactivatable = false,
+                AspAction = "Create",
+                SubmitButtonLabel = "Create",
+                CardHeader = "Create QMS User:"
+            };
+
+            // ORGANIZATIONS
+            List<Organization> activeOrganizations = _organizationService.RetrieveActiveOrganizations();
+            ViewBag.ActiveOrganizations = new SelectList(activeOrganizations, "OrgId", "OrgLabel");
+
+            // POTENTIAL MANAGERS
+            List<User> usersInOrg = new List<User>();
+            ViewBag.PotentialManagers = new SelectList(usersInOrg, "UserId", "DisplayLabel");
+            return View(uaFormVM);
+        }
+
+        [HttpPost]
+        public IActionResult CreateUser(UserAdminFormVM uaForm)
+        {
+            return RedirectToAction("Index");
         }
     }
 }
