@@ -1,7 +1,9 @@
 ﻿using Qms_Data.ViewModels;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Qms_Web.ViewModels
+namespace Qms_Data.ViewModels
 {
     public class UserAdminFormVM
     {
@@ -22,8 +24,7 @@ namespace Qms_Web.ViewModels
         [Display(Name = "DisplayName")]
         public string DisplayName { get; set; } = String.Empty;
 
-        public List<RoleAdminVM> Roles { get; } = new List<RoleAdminVM>();
-        public IList<RoleVM> CheckboxRoles { get; set; } = new List<RoleVM>();
+          public IList<RoleVM> CheckboxRoles { get; set; } = new List<RoleVM>();
 
         public string AspAction { get; set; } = String.Empty;
         public string SubmitButtonLabel { get; set; } = String.Empty;

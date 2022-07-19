@@ -5,7 +5,6 @@ using Kendo.Mvc.Extensions;
 using Qms_Data.Services.Interfaces;
 using Qms_Web.Models;
 using Qms_Data.ViewModels;
-using Qms_Web.ViewModels;
 using QmsCore.Services;
 using QmsCore.UIModel;
 using Microsoft.AspNetCore.Mvc.Rendering;
