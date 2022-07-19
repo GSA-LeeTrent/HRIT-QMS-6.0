@@ -61,20 +61,20 @@
                             {
                                 if (count++ % 2 == 0)
                                 {
-                        @:</div><div class="row">
+                                    @:</div><div class="row">
                                 }
                                 string createUpdateRoleForUserCheckboxId = $"createOrUpdateRoleForUser-{checkboxRole.RoleId}";
-                            @:<div class="form-group col-md-6 m-0">
-                                @:<div class="custom-control custom-checkbox">
-                                    <input type="checkbox"
-                                           class="custom-control-input"
-                                           id="@createUpdateRoleForUserCheckboxId"
-                                           name="selectedRoleIdsForUser"
-                                           value="@checkboxRole.RoleId"
-                                           @(Html.Raw(checkboxRole.Selected ? "checked=\"checked\"" : "")) />
-                                    <label class="custom-control-label" for="@createUpdateRoleForUserCheckboxId">@checkboxRole.RoleLabel</label>
+                                @:<div class="form-group col-md-6 m-0">
+                                    @:<div class="custom-control custom-checkbox">
+                                        <input type="checkbox"
+                                               class="custom-control-input"
+                                               id="@createUpdateRoleForUserCheckboxId"
+                                               name="selectedRoleIdsForUser"
+                                               value="@checkboxRole.RoleId"
+                                               @(Html.Raw(checkboxRole.Selected ? "checked=\"checked\"" : "")) />
+                                        <label class="custom-control-label" for="@createUpdateRoleForUserCheckboxId">@checkboxRole.RoleLabel</label>
+                                    @:</div>
                                 @:</div>
-                            @:</div>
                             }
                         }
                     </div>

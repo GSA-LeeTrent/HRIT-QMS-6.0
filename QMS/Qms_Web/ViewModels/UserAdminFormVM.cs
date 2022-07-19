@@ -23,7 +23,7 @@ namespace Qms_Web.ViewModels
         public string DisplayName { get; set; } = String.Empty;
 
         public List<RoleAdminVM> Roles { get; } = new List<RoleAdminVM>();
-        public IList<RoleVM>? CheckboxRoles { get; set; } 
+        public IList<RoleVM> CheckboxRoles { get; set; } = new List<RoleVM>();
 
         public string AspAction { get; set; } = String.Empty;
         public string SubmitButtonLabel { get; set; } = String.Empty;
