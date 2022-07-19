@@ -24,14 +24,6 @@ namespace Qms_Web.Controllers
         [HttpGet]
         public ActionResult<List<ManagerSelectOptionVM>> RetrieveUsersByOrganizationId(int orgId)
         {
-            string logSnippet = new StringBuilder("[")
-                                .Append(DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"))
-                                .Append("][UserAdminApiController][HttpGet][RetrieveUsersByOrganizationId] => ")
-                                .ToString();
-
-            Console.WriteLine(logSnippet + $"(orgId)............: '{orgId}'");
-            Console.WriteLine(logSnippet + $"(# of users in org): '{_userAdminService.RetrieveUsersByOrgId(orgId).Count}'");
-
             return _userAdminService.RetrieveUsersByOrgId(orgId);
         }
     }

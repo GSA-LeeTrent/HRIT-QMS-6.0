@@ -31,7 +31,6 @@ namespace Qms_Data.Services
 
         public List<ManagerSelectOptionVM> RetrieveUsersByOrgId(int orgId)
         {
-            //List<SecUser> entities = _repository.RetrieveUsersByOrgId(orgId).ToList();
             IQueryable<SecUser> entities = _repository.RetrieveUsersByOrgId(orgId);
 
             List<ManagerSelectOptionVM> viewModels = new();
