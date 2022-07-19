@@ -120,7 +120,8 @@ namespace Qms_Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateUser(UserAdminFormVM uaForm)
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateUser([Bind("ManagerId, OrgId, EmailAddress, DisplayName")]  UserAdminFormVM userFormVM, string[] selectedRoleIdsForUser)
         {
             return RedirectToAction("Index");
         }
