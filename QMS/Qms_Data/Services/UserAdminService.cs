@@ -41,6 +41,18 @@ namespace Qms_Data.Services
             return viewModels;
         }
 
+        public IList<RoleVM> RetrieveActiveRoles()
+        {
+            IQueryable<SecRole> entities = _repository.RetrieveActiveRoles();
+
+            IList<RoleVM> viewModels = new List<RoleVM>();
+            foreach (SecRole entity in entities)
+            {
+                viewModels.Add(new RoleVM((int)entity.RoleId, entity.RoleCode, entity.RoleLabel));
+            }
+            return viewModels;
+        }
+
         private IList<UserListRowVM> mapToViewModel(IQueryable<SecUser> entities)
         {
             IList<UserListRowVM> viewModels = new List<UserListRowVM>();

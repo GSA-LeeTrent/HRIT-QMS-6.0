@@ -40,5 +40,10 @@ namespace Qms_Data.Repositories
         {
             return _dbContext.SecUser.Where(u => u.DeletedAt == null && u.OrgId == orgId).AsNoTracking();
         }
+
+        public IQueryable<SecRole> RetrieveActiveRoles()
+        {
+            return _dbContext.SecRole.AsNoTracking().Where(p => p.DeletedAt == null).OrderBy(s => s.RoleCode);
+        }
     }
 }

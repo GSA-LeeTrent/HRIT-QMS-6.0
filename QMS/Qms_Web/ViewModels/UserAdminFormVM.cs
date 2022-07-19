@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Qms_Data.ViewModels;
+using System.ComponentModel.DataAnnotations;
 
 namespace Qms_Web.ViewModels
 {
@@ -22,7 +23,7 @@ namespace Qms_Web.ViewModels
         public string DisplayName { get; set; } = String.Empty;
 
         public List<RoleAdminVM> Roles { get; } = new List<RoleAdminVM>();
-        public List<RoleAdminVM> CheckboxRoles { get; } = new List<RoleAdminVM>();
+        public IList<RoleVM>? CheckboxRoles { get; set; } 
 
         public string AspAction { get; set; } = String.Empty;
         public string SubmitButtonLabel { get; set; } = String.Empty;
