@@ -4,19 +4,19 @@
     if (@Model.Deactivatable)
     {
     <div class="w-75 mt-2 mb-1 text-right">
-            <form asp-controller2="User2" asp-action="Deactivate" method="POST">
-                <input type="hidden" asp-for="UserId" />
-                <button class="btn btn-danger" type="submit">Deactivate</button>
-            </form>
+                <form asp-controller2="User2" asp-action="Deactivate" method="POST">
+                    <input type="hidden" asp-for="UserId" />
+                    <button class="btn btn-danger" type="submit">Deactivate</button>
+                </form>
     </div>
     }
     if (@Model.Reactivatable)
     {
     <div class="w-75 mt-2 mb-1 text-right">
-            <form asp-controller2="User2" asp-action="Reactivate" method="POST">
-                <input type="hidden" asp-for="UserId" />
-                <button class="btn btn-success" type="submit">Reactivate</button>
-            </form>
+                <form asp-controller2="User2" asp-action="Reactivate" method="POST">
+                    <input type="hidden" asp-for="UserId" />
+                    <button class="btn btn-success" type="submit">Reactivate</button>
+                </form>
     </div>
     }
 }
@@ -68,44 +68,5 @@
     </div>
 
 @section Scripts {
-    <script>
-        let createOrUpdateUserOrganization = document.getElementById("createOrUpdateUserOrganization");
-        if (createOrUpdateUserOrganization) {
-            createOrUpdateUserOrganization.addEventListener('change', function (event) {
-                const selectedOrgId = createOrUpdateUserOrganization.options[createOrUpdateUserOrganization.selectedIndex].value;
-                console.log(`[createOrUpdateUserOrganization][ChangeEventListener] => (selectedOrgId): ${selectedOrgId}`);
-
-                let createOrUpdateUserManager = document.getElementById("createOrUpdateUserManager");
-                if (createOrUpdateUserManager) {
-                    createOrUpdateUserManager.innerHTML = "";
-                    createOrUpdateUserManager.add(createOption("", "Working ..."));
-        
-                    $.ajax({
-                        type: "GET",
-                        url: "/api/ua/users",
-                        data: {
-                            orgId: selectedOrgId
-                        },
-                        cache: false,
-                        success: function (data) {
-                            console.log("Call to '/api/ua/users' was successful.");
-                            createOrUpdateUserManager.innerHTML = "";
-                            createOrUpdateUserManager.add(createOption("", " -- Select Manager --"));
-                            $.each(data, function (key, item) {
-                                console.log("item:", item);
-                                createOrUpdateUserManager.add(createOption(item.UserId, item.DisplayLabel));
-                            })
-                        }
-                    });
-                }
-            });
-        }
-
-        function createOption(value, text) {
-            let option = document.createElement("option");
-            option.setAttribute("value", value);
-            option.textContent = text;
-            return option;
-        }
-    </script>
+    <script src="~/js/qms_user_admin_20220719.js"></script>
 }
