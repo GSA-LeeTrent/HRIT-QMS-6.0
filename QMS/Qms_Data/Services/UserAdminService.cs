@@ -29,7 +29,7 @@ namespace Qms_Data.Services
             return this.mapToViewModel(_repository.RetrieveInactiveUsers());
         }
 
-        public List<UserInOrgVM> RetrieveUsersByOrgId(int orgId)
+        public List<ManagerSelectOptionVM> RetrieveUsersByOrgId(int orgId)
         {
             List<SecUser> entities = _repository.RetrieveUsersByOrgId(orgId).ToList();
 
@@ -39,15 +39,10 @@ namespace Qms_Data.Services
                     .ToString();
             Console.WriteLine(logSnippet + $"(entities.Count)..: '{entities.Count}'");
 
-            List<UserInOrgVM> viewModels = new();
+            List<ManagerSelectOptionVM> viewModels = new();
             foreach (SecUser entity in entities)
             {
-                viewModels.Add(new UserInOrgVM(
-                    Convert.ToString(entity.UserId),
-                    (entity.OrgId.HasValue) ? Convert.ToString(entity.OrgId.Value) : null,
-                    entity.EmailAddress,
-                    entity.DisplayName
-                ));
+                viewModels.Add(new ManagerSelectOptionVM(Convert.ToString(entity.UserId),  $"{entity.DisplayName} - [{entity.EmailAddress}]"));
             }
             return viewModels;
         }

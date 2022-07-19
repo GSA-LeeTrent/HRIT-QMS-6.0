@@ -22,7 +22,7 @@ namespace Qms_Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<UserInOrgVM>> RetrieveUsersByOrganizationId(int orgId)
+        public ActionResult<List<ManagerSelectOptionVM>> RetrieveUsersByOrganizationId(int orgId)
         {
             string logSnippet = new StringBuilder("[")
                                 .Append(DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"))
