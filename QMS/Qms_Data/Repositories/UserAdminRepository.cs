@@ -35,5 +35,10 @@ namespace Qms_Data.Repositories
                                         .OrderBy(u => u.EmailAddress)
                                         .AsNoTracking();
         }
+
+        public IQueryable<SecUser> RetrieveUsersByOrgId(int orgId)
+        {
+            return _dbContext.SecUser.Where(u => u.DeletedAt == null && u.OrgId == orgId).AsNoTracking();
+        }
     }
 }

@@ -11,5 +11,6 @@ namespace Qms_Data.Repositories.Interfaces
     {
         public IQueryable<SecUser> RetrieveActiveUsers();
         public IQueryable<SecUser> RetrieveInactiveUsers();
+        public IQueryable<SecUser> RetrieveUsersByOrgId(int orgId);
     }
 }

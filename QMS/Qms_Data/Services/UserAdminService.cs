@@ -3,8 +3,10 @@ using Qms_Data.Repositories.Interfaces;
 using Qms_Data.Services.Interfaces;
 using Qms_Data.ViewModels;
 using QmsCore.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Qms_Data.Services
 {
@@ -25,6 +27,29 @@ namespace Qms_Data.Services
         public IList<UserListRowVM> RetrieveInactiveUsers()
         {
             return this.mapToViewModel(_repository.RetrieveInactiveUsers());
+        }
+
+        public List<UserInOrgVM> RetrieveUsersByOrgId(int orgId)
+        {
+            List<SecUser> entities = _repository.RetrieveUsersByOrgId(orgId).ToList();
+
+            string logSnippet = new StringBuilder("[")
+                    .Append(DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"))
+                    .Append("][UserAdminService][RetrieveUsersByOrgId] => ")
+                    .ToString();
+            Console.WriteLine(logSnippet + $"(entities.Count)..: '{entities.Count}'");
+
+            List<UserInOrgVM> viewModels = new();
+            foreach (SecUser entity in entities)
+            {
+                viewModels.Add(new UserInOrgVM(
+                    Convert.ToString(entity.UserId),
+                    (entity.OrgId.HasValue) ? Convert.ToString(entity.OrgId.Value) : null,
+                    entity.EmailAddress,
+                    entity.DisplayName
+                ));
+            }
+            return viewModels;
         }
 
         private IList<UserListRowVM> mapToViewModel(IQueryable<SecUser> entities)

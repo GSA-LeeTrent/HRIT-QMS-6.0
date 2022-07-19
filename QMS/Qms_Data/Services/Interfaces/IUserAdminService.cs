@@ -11,5 +11,6 @@ namespace Qms_Data.Services.Interfaces
     {
         public IList<UserListRowVM> RetrieveActiveUsers();
         public IList<UserListRowVM> RetrieveInactiveUsers();
+        public List<UserInOrgVM> RetrieveUsersByOrgId(int orgId);
     }
 }
