@@ -123,7 +123,7 @@ namespace Qms_Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CreateUser([Bind("ManagerId, OrgId, EmailAddress, DisplayName")]  UserAdminFormVM userFormVM, string[] selectedRoleIdsForUser)
         {
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
     }
 }
