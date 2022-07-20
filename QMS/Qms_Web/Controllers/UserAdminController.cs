@@ -112,6 +112,7 @@ namespace Qms_Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CreateUser([Bind("ManagerId, OrgId, EmailAddress, DisplayName")]  UserAdminFormVM userFormVM, string[] selectedRoleIdsForUser)
         {
+            _userAdminService.CreateUser(userFormVM, selectedRoleIdsForUser);
             return RedirectToAction(nameof(Index));
         }
     }

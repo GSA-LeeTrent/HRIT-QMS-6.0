@@ -1,4 +1,5 @@
-﻿using Qms_Data.Repositories;
+﻿using AutoMapper;
+using Qms_Data.Repositories;
 using Qms_Data.Repositories.Interfaces;
 using Qms_Data.Services.Interfaces;
 using Qms_Data.ViewModels;
@@ -13,10 +14,18 @@ namespace Qms_Data.Services
     public class UserAdminService : IUserAdminService
     {
         private readonly IUserAdminRepository _repository;
+        public readonly IMapper _mapper;
 
         public UserAdminService()
         {
             _repository = new UserAdminRepository();
+
+            MapperConfiguration mapperConfig = new MapperConfiguration(cfg => {
+                cfg.CreateMap<SecUser, UserAdminFormVM>().ReverseMap();
+                cfg.CreateMap<SecUser, UserListRowVM>().ReverseMap();
+            });
+
+            _mapper = mapperConfig.CreateMapper();
         }
 
         public IList<UserListRowVM> RetrieveActiveUsers()
@@ -67,6 +76,12 @@ namespace Qms_Data.Services
                 );
             }
             return viewModels;
+        }
+
+        public int CreateUser(UserAdminFormVM uaForm, string[] selectedRoleIdsForUser)
+        {
+            SecUser entity = _mapper.Map<SecUser>(uaForm);
+            return 0;
         }
     }
 }

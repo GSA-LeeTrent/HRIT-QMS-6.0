@@ -45,5 +45,16 @@ namespace Qms_Data.Repositories
         {
             return _dbContext.SecRole.AsNoTracking().Where(p => p.DeletedAt == null).OrderBy(s => s.RoleCode);
         }
+
+        public int CreateUser(SecUser secUser)
+        {
+            _dbContext.SecUser.Add(secUser);
+            foreach (var sur in secUser.SecUserRole)
+            {
+                _dbContext.SecUserRole.Add(sur);
+            }
+            _dbContext.SaveChanges();
+            return (int)secUser.UserId;
+        }
     }
 }
