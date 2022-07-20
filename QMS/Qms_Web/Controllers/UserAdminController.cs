@@ -127,6 +127,7 @@ namespace Qms_Web.Controllers
 
             this.populateOrganizationAndManagerDropdowns(uaFormVM);
             this.populateRoleCheckboxes(uaFormVM);
+            this.populateRoleCheckboxes(uaFormVM, selectedRoleIdsForUser!);
 
             return View(uaFormVM);
         }
@@ -161,6 +162,22 @@ namespace Qms_Web.Controllers
         private void populateRoleCheckboxes(UserAdminFormVM uaFormVM)
         {
             uaFormVM.CheckboxRoles = _userAdminService.RetrieveActiveRoles();
+        }
+
+        private void populateRoleCheckboxes(UserAdminFormVM uaFormVM, string[] selectedRoleIdStringArray)
+        {
+            // CONVERT STRING ARRAY TO INTEGER ARRAY
+            int[] selectedRoleIdIntArray = Array.ConvertAll(selectedRoleIdStringArray, int.Parse);
+
+            // CONVERT INTEGER ARRAY TO SET OF INTEGERS
+            HashSet<int> selectedRoleIdIntSet = new HashSet<int>(selectedRoleIdIntArray);
+
+            // For every occurrence of CheckboxRole, set the 'Selected" property to true 
+            // where the role id is containted in selectedRoleIdIntSetForUser.
+            foreach (RoleVM checkboxRole in uaFormVM.CheckboxRoles)
+            {
+                checkboxRole.Selected = selectedRoleIdIntSet.Contains(checkboxRole.RoleId);
+            }
         }
     }
 }
