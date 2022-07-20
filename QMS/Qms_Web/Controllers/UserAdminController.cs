@@ -94,17 +94,9 @@ namespace Qms_Web.Controllers
                 CardHeader = "Add New User:"
             };
 
-            // ORGANIZATION DROPDOWN
-            List<Organization> activeOrganizations = _organizationService.RetrieveActiveOrganizations();
-            ViewBag.ActiveOrganizations = new SelectList(activeOrganizations, "OrgId", "OrgLabel");
+            this.populateOrganizationAndManagerDropdowns(uaFormVM);
+            this.populateRoleCheckboxes(uaFormVM);
 
-            // MANAGER DROPDOWN (based on user selection in Organization Dropdown)
-            List<User> usersInOrg = new List<User>(); // empty to begin with
-            ViewBag.PotentialManagers = new SelectList(usersInOrg, "UserId", "DisplayLabel");
-
-            // ROLE CHECKBOXES
-            uaFormVM.CheckboxRoles = _userAdminService.RetrieveActiveRoles();
-  
             return View(uaFormVM);
         }
 
