@@ -66,12 +66,6 @@ namespace Qms_Web.Controllers
         [HttpGet("login")]
         public IActionResult Login(string returnUrl)
         {
-            string logSnippet = new StringBuilder("[")
-                                .Append(DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"))
-                                .Append("][AuthenticationController][HttpGet][LoginAsync] => ")
-                                .ToString();
-            Console.WriteLine($"{logSnippet} (returnUrl): '{returnUrl}'");
-
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
@@ -84,7 +78,7 @@ namespace Qms_Web.Controllers
         {
             string logSnippet = new StringBuilder("[")
                                 .Append(DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"))
-                                .Append("][AuthenticationController][HttpPost][LoginAsync] => ")
+                                .Append("][LoginController][HttpPost][LoginAsync] => ")
                                 .ToString();
             Console.WriteLine($"{logSnippet} (returnUrl): '{returnUrl}'");
             Console.WriteLine($"{logSnippet} ((_hostingEnv.IsDevelopment()): '{_hostingEnv.IsDevelopment()}'");

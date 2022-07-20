@@ -21,8 +21,6 @@ builder.Services.AddKendo();
 // 1) INTEGRATE WITH SECUREAUTH
 // 2) CONNECT TO DATABASE
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-string logSnippet = "[Qms_Web][Program.cs] =>";
-Console.WriteLine($"{logSnippet} (APPSETTINGS_DIRECTORY): '{Environment.GetEnvironmentVariable("APPSETTINGS_DIRECTORY")}'");
 builder.Configuration.SetBasePath(Environment.GetEnvironmentVariable("APPSETTINGS_DIRECTORY"));
 builder.Configuration.AddJsonFile("qms_appsettings.json", optional: false, reloadOnChange: true);
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -108,5 +106,8 @@ app.UseSession();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+string logSnippet = "[Qms_Web][Program.cs] =>";
+Console.WriteLine($"{logSnippet} (Calling WebApplication.Run())");
 
 app.Run();
