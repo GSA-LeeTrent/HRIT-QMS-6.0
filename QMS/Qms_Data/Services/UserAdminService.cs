@@ -81,6 +81,9 @@ namespace Qms_Data.Services
         public int CreateUser(UserAdminFormVM uaForm, string[] selectedRoleIdsForUser)
         {
             SecUser entity = _mapper.Map<SecUser>(uaForm);
+
+            int[] roleIdsAsInts = Array.ConvertAll(selectedRoleIdsForUser, int.Parse);
+
             return 0;
         }
     }
