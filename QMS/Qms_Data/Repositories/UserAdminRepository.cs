@@ -56,5 +56,10 @@ namespace Qms_Data.Repositories
             _dbContext.SaveChanges();
             return (int)secUser.UserId;
         }
+
+        public SecUser RetrieveUserByEmailAddress(string emailAddress)
+        {
+            return _dbContext.SecUser.AsNoTracking().Where(u => u.EmailAddress == emailAddress).SingleOrDefault();
+        }
     }
 }

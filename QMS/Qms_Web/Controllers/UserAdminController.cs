@@ -113,12 +113,14 @@ namespace Qms_Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CreateUser([Bind("ManagerId, OrgId, EmailAddress, DisplayName")]  UserAdminFormVM uaFormVM, string[] selectedRoleIdsForUser)
         {
-            ///////////////////////////////////////////////////////////////////////////////////
-            // User's Role Selection Validation
-            ///////////////////////////////////////////////////////////////////////////////////
             if (selectedRoleIdsForUser == null || selectedRoleIdsForUser.Length == 0)
             {
                 ModelState.AddModelError(string.Empty, "Please select at least one role.");
+            }
+
+            if (_userAdminService.UserAlreadyExists(uaFormVM.EmailAddress))
+            {
+                ModelState.AddModelError(string.Empty, $"The following email address is already in the QMS system: '{uaFormVM.EmailAddress}'.");
             }
 
             if (ModelState.IsValid)

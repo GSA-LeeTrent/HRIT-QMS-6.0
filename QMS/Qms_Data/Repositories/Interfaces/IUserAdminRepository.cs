@@ -14,5 +14,6 @@ namespace Qms_Data.Repositories.Interfaces
         public IQueryable<SecUser> RetrieveUsersByOrgId(int orgId);
         public IQueryable<SecRole> RetrieveActiveRoles();
         public int CreateUser(SecUser secUser);
+        public SecUser RetrieveUserByEmailAddress(string emailAddress);
     }
 }

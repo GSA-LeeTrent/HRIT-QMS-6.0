@@ -98,5 +98,10 @@ namespace Qms_Data.Services
 
             return _repository.CreateUser(entity);
         }
+
+        public bool UserAlreadyExists(string emailAddress)
+        {
+            return _repository.RetrieveUserByEmailAddress(emailAddress) != null;
+        }
     }
 }
