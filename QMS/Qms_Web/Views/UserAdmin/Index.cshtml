@@ -31,3 +31,14 @@
             .Selected(@showUserAdminInactiveTab);
     })
 )
+
+@section Scripts {
+    <script>
+        function buttonClickHandlerForCreateUser(e) {
+            console.log(e.target.text() + " 'click' event is fired.");
+            console.log("window.location.href:", window.location.href);
+            console.log("location.href.......:", location.href);
+            location.href = `${location.href}/CreateUser`
+        }
+    </script>
+}
