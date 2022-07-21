@@ -8,6 +8,8 @@ using Qms_Data.ViewModels;
 using QmsCore.Services;
 using QmsCore.UIModel;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using static Qms_Web.Constants.QmsConstants;
+using Qms_Web.Extensions;
 
 namespace Qms_Web.Controllers
 {
@@ -27,6 +29,13 @@ namespace Qms_Web.Controllers
         {
             ViewData["ShowUserAdminActiveTab"] = "True";
             ViewData["ShowUserAdmiInactiveTab"] = "False";
+
+            string? successMsg = HttpContext.Session.GetObject<string>(UserAdminConstants.SUCCESS_MESSAGE);
+            if (String.IsNullOrEmpty(successMsg) == false && String.IsNullOrWhiteSpace(successMsg) == false)
+            {
+                ViewData["UserAdminSuccessMessage"] = successMsg;
+                HttpContext.Session.Remove(UserAdminConstants.SUCCESS_MESSAGE);
+            }         
 
             return View();
         }
@@ -115,6 +124,9 @@ namespace Qms_Web.Controllers
             if (ModelState.IsValid)
             {
                 int newUserId = _userAdminService.CreateUser(uaFormVM, selectedRoleIdsForUser);
+                string successMsg = $"New QMS User has been successfully added as: '{uaFormVM.DisplayName} - [{uaFormVM.EmailAddress}]'.";
+                HttpContext.Session.SetObject(UserAdminConstants.SUCCESS_MESSAGE, successMsg);
+
                 return RedirectToAction(nameof(Index));
             }
 

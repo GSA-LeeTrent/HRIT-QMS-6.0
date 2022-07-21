@@ -22,7 +22,7 @@
 }
 
     <h1 class="display-6 mt-4" style="font-size:1.9rem;">@Model.CardHeader</h1>
-    <div class="card w-75">
+    <div class="card">
         <div class="card-body">
             <form asp-controller="UserAdmin" asp-action="@Model.AspAction" method="POST" id="createOrUpdateUserForm">
                 <div asp-validation-summary="All" class="text-danger"></div>

@@ -1,14 +1,22 @@
-﻿
-@{
+﻿@{
     var showUserAdminActiveTabString = ViewData["ShowUserAdminActiveTab"] as string;
     var showUserAdminInactiveTabString = ViewData["ShowUserAdminInactiveTab"] as string;
 
     bool showUserAdminActiveTab = Convert.ToBoolean(showUserAdminActiveTabString);
     bool showUserAdminInactiveTab = Convert.ToBoolean(showUserAdminInactiveTabString);
 
-
+    var userAdminSuccessMessage = ViewData[Qms_Web.Constants.QmsConstants.UserAdminConstants.SUCCESS_MESSAGE] as string;
 }
+
 <h1 class="display-6 mt-3 text-center">User Administration</h1>
+
+@if (string.IsNullOrEmpty(userAdminSuccessMessage) == false)
+{
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert" style="border: 1px solid #0f5132">
+        @Html.Raw(@userAdminSuccessMessage)
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 
 @(Html.Kendo().TabStrip()
     .Name("user-admin-tabstrip")
