@@ -21,10 +21,15 @@
                 <a class="navbar-brand my-0 py-0" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="~/images/qms-logo.png" class="my-1 py-0" width="137" height="75" alt="HR QMS Logo">
                 </a>
-                @if (User!.Identity!.IsAuthenticated)
-                {
-                    <a class="k-button k-button-md k-rounded-md k-button-solid k-button-solid-primary" asp-area="" asp-controller="Login" asp-action="Logout">Logout</a>
-                }
+               
+                    @if (User != null && User.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                        <ul class="navbar-nav ml-auto my-0 py-0">
+                             <li class="nav-item" style="padding:0.375rem 0.75rem"><span class="text-primary">@User.Identity.Name</span></li>
+                             <a class="k-button k-button-md k-rounded-md k-button-solid k-button-solid-primary" asp-area="" asp-controller="Login" asp-action="Logout">Logout</a>
+                        </ul>
+                    }
+                 
             </div>
         </nav>
     </header>
