@@ -11,5 +11,10 @@ namespace Qms_Data.Services.Interfaces
     {
         public IList<UserListRowVM> RetrieveActiveUsers();
         public IList<UserListRowVM> RetrieveInactiveUsers();
+        public List<ManagerSelectOptionVM> RetrieveUsersByOrgId(int orgId);
+        public IList<RoleVM> RetrieveActiveRoles();
+        public int CreateUser(UserAdminFormVM uaForm, string[] selectedRoleIdsForUser);
+
+        public bool UserAlreadyExists(string emailAddress);
     }
 }

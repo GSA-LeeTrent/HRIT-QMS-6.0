@@ -5,6 +5,7 @@ using Qms_Web.Constants;
 using Qms_Web.Extensions;
 using QmsCore.Services;
 using QmsCore.UIModel;
+using static Qms_Web.Constants.QmsConstants;
 
 namespace Qms_Web.Controllers
 {
@@ -20,7 +21,7 @@ namespace Qms_Web.Controllers
 
         public ActionResult Menu_Read([DataSourceRequest] DataSourceRequest request)
         {
-            List<ModuleMenuItem> parentMenus = HttpContext.Session.GetObject<List<ModuleMenuItem>>(QmsConstants.MODULE_MENU_ITEMS_SESSION_KEY)!;
+            List<ModuleMenuItem> parentMenus = HttpContext.Session.GetObject<List<ModuleMenuItem>>(MenuConstants.MODULE_MENU_ITEMS_SESSION_KEY)!;
             if (parentMenus == null)
             {
                 return View(new List<ModuleMenuItem>());

@@ -11,6 +11,7 @@ using System.Security.Claims;
 using System.Text;
 using AspNetCore.LegacyAuthCookieCompat;
 using QmsCore.QmsException;
+using static Qms_Web.Constants.QmsConstants;
 
 namespace Qms_Web.Controllers
 {
@@ -66,12 +67,6 @@ namespace Qms_Web.Controllers
         [HttpGet("login")]
         public IActionResult Login(string returnUrl)
         {
-            string logSnippet = new StringBuilder("[")
-                                .Append(DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"))
-                                .Append("][AuthenticationController][HttpGet][LoginAsync] => ")
-                                .ToString();
-            Console.WriteLine($"{logSnippet} (returnUrl): '{returnUrl}'");
-
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
@@ -84,7 +79,7 @@ namespace Qms_Web.Controllers
         {
             string logSnippet = new StringBuilder("[")
                                 .Append(DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"))
-                                .Append("][AuthenticationController][HttpPost][LoginAsync] => ")
+                                .Append("][LoginController][HttpPost][LoginAsync] => ")
                                 .ToString();
             Console.WriteLine($"{logSnippet} (returnUrl): '{returnUrl}'");
             Console.WriteLine($"{logSnippet} ((_hostingEnv.IsDevelopment()): '{_hostingEnv.IsDevelopment()}'");
@@ -101,20 +96,20 @@ namespace Qms_Web.Controllers
                 User qmsUser = _userService.RetrieveByEmailAddress(localhostEmail);
                 var claimsPrincipal = AuthHelper.CreateClaimsPrincipal(qmsUser, localhostName, localhostEmail);
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
-                HttpContext.Session.SetObject(QmsConstants.USER_SESSION_KEY, qmsUser);
+                HttpContext.Session.SetObject(UserConstants.USER_SESSION_KEY, qmsUser);
                 ////////////////////////////////////////////////////////////////////////////
 
                 ////////////////////////////////////////////////////////////////////////////
                 // QMS Navigation Menu APPEARING ON ALL PAGES
                 ////////////////////////////////////////////////////////////////////////////
                 List<ModuleMenuItem> moduleMenuItems = _menuBuilderService.RetrieveMenuForUser(qmsUser.UserId);
-                HttpContext.Session.SetObject(QmsConstants.MODULE_MENU_ITEMS_SESSION_KEY, moduleMenuItems);
+                HttpContext.Session.SetObject(MenuConstants.MODULE_MENU_ITEMS_SESSION_KEY, moduleMenuItems);
                 ////////////////////////////////////////////////////////////////////////////
 
                 return Redirect(returnUrl);
             }
 
-            HttpContext.Session.SetObject(QmsConstants.REQUESTED_URI, returnUrl);
+            HttpContext.Session.SetObject(NavigationConstants.REQUESTED_URI, returnUrl);
             Console.WriteLine(logSnippet + "User has not been authenticated, redirecting to SecureAuth based on parameters in the config file.");
             var samlEndpoint = _config["SecureAuth:RedirectURL"];
             Console.WriteLine(logSnippet + $"(_hostingEnv.EnvironmentName): '{_hostingEnv.EnvironmentName}'");
@@ -165,14 +160,14 @@ namespace Qms_Web.Controllers
                 byte[] decryptionKeyBytes = HexUtils.HexToBinary(decryptionKey);
                 byte[] validationKeyBytes = HexUtils.HexToBinary(validationKey);
 
-                string compatabilityMode = _config.GetValue<string>(QmsConstants.ENCRYPTION_COMPATABILITY_MODE);
+                string compatabilityMode = _config.GetValue<string>(SecureAuthContants.ENCRYPTION_COMPATABILITY_MODE);
                 Console.WriteLine(logSnippet + $"(compatabilityMode IsNullOrEmpty).....: {String.IsNullOrEmpty(compatabilityMode)}");
                 Console.WriteLine(logSnippet + $"(compatabilityMode IsNullOrWhiteSpace): {String.IsNullOrWhiteSpace(compatabilityMode)}");
                 Console.WriteLine(logSnippet + $"(compatabilityMode)...................: '{compatabilityMode}'");
 
                 LegacyFormsAuthenticationTicketEncryptor? legacyFormsAuthenticationTicketEncryptor = null;
 
-                if (compatabilityMode.Equals(QmsConstants.FRAMEWORK45))
+                if (compatabilityMode.Equals(SecureAuthContants.FRAMEWORK45))
                 {
                     legacyFormsAuthenticationTicketEncryptor
                         = new LegacyFormsAuthenticationTicketEncryptor(decryptionKeyBytes, validationKeyBytes, ShaVersion.Sha1, CompatibilityMode.Framework45);
@@ -192,7 +187,7 @@ namespace Qms_Web.Controllers
                     Console.WriteLine(logSnippet + $"(decryptedTicket.Name).....: '{decryptedTicket.Name}'");
                     Console.WriteLine(logSnippet + $"(decryptedTicket.UserData).: '{decryptedTicket.UserData}'");
 
-                    HttpContext.Session.SetObject(QmsConstants.USER_EMAIL_ADDRESS, decryptedTicket.UserData);
+                    HttpContext.Session.SetObject(UserConstants.USER_EMAIL_ADDRESS, decryptedTicket.UserData);
                 }
 
                 ////////////////////////////////////////////////////////////////////////////////
@@ -262,21 +257,21 @@ namespace Qms_Web.Controllers
                         // Place SecUser in Session
                         ////////////////////////////////////////////////////////////////////////////
                         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
-                        HttpContext.Session.SetObject(QmsConstants.USER_SESSION_KEY, qmsUser);
+                        HttpContext.Session.SetObject(UserConstants.USER_SESSION_KEY, qmsUser);
 
 
                         ////////////////////////////////////////////////////////////////////////////
                         // QMS Navigation Menu APPEARING ON ALL PAGES
                         ////////////////////////////////////////////////////////////////////////////
                         List<ModuleMenuItem> moduleMenuItems = _menuBuilderService.RetrieveMenuForUser(qmsUser.UserId);
-                        HttpContext.Session.SetObject(QmsConstants.MODULE_MENU_ITEMS_SESSION_KEY, moduleMenuItems);
+                        HttpContext.Session.SetObject(MenuConstants.MODULE_MENU_ITEMS_SESSION_KEY, moduleMenuItems);
                         ////////////////////////////////////////////////////////////////////////////
 
                     }
                 }
             }
 
-            string requestedUri = HttpContext.Session.GetObject<string>(QmsConstants.REQUESTED_URI)!;
+            string requestedUri = HttpContext.Session.GetObject<string>(NavigationConstants.REQUESTED_URI)!;
 
             Console.WriteLine(logSnippet + $"(Request.Protocol): '{Request.Protocol}'");
             Console.WriteLine(logSnippet + $"(Request.Host)....: '{Request.Host}'");
@@ -298,7 +293,7 @@ namespace Qms_Web.Controllers
 
             if (string.IsNullOrEmpty(requestedUri) == false && string.IsNullOrWhiteSpace(requestedUri) == false)
             {
-                HttpContext.Session.Remove(QmsConstants.REQUESTED_URI);
+                HttpContext.Session.Remove(NavigationConstants.REQUESTED_URI);
                 return Redirect(redirectUrl);
             }
             else

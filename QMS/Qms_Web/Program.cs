@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Qms_Data.Services;
+using Qms_Web.Mappings;
 using QmsCore.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,13 +17,17 @@ builder.Services.AddControllersWithViews()
 builder.Services.AddKendo();
 ///////////////////////////////////////////////////
 
+///////////////////////////////////////////////////
+// ADD AUTOMAPPER TO THE SERVICES CONTAINER
+///////////////////////////////////////////////////
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // SET ACCESS TO QMS_APPSETTINGS.JSON WHICH IS USED TO
 // 1) INTEGRATE WITH SECUREAUTH
 // 2) CONNECT TO DATABASE
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-string logSnippet = "[Qms_Web][Program.cs] =>";
-Console.WriteLine($"{logSnippet} (APPSETTINGS_DIRECTORY): '{Environment.GetEnvironmentVariable("APPSETTINGS_DIRECTORY")}'");
 builder.Configuration.SetBasePath(Environment.GetEnvironmentVariable("APPSETTINGS_DIRECTORY"));
 builder.Configuration.AddJsonFile("qms_appsettings.json", optional: false, reloadOnChange: true);
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -70,6 +75,11 @@ builder.Services.AddScoped<IMenuBuilderService, MenuBuilderService>();
 builder.Services.AddScoped<Qms_Data.Services.Interfaces.IUserAdminService, UserAdminService>();
 //////////////////////////////////////////////////////////////////////////////////////////
 
+////////////////////////////////////////////////////////////////////////////////////////// 
+// Register OrganizationService
+//////////////////////////////////////////////////////////////////////////////////////////          
+builder.Services.AddScoped<IOrganizationService, OrganizationService>();
+//////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////// 
 // Register NotificationService
@@ -103,5 +113,8 @@ app.UseSession();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+string logSnippet = "[Qms_Web][Program.cs] =>";
+Console.WriteLine($"{logSnippet} (Calling WebApplication.Run())");
 
 app.Run();

@@ -5,7 +5,7 @@
         @(Html.Kendo().ToolBar().Name("ActiveUsersToolBar")
             .Items(items =>
             {
-                items.Add().Type(CommandType.Button).Text("Add New User").Icon("k-button-icon k-icon k-i-plus").Togglable(true);
+                items.Add().Type(CommandType.Button).Text("Add New User").Icon("k-button-icon k-icon k-i-plus").Id("CreateUserButton").Click("buttonClickHandlerForCreateUser");
             })
         )
         @(Html.Kendo().Grid <Qms_Data.ViewModels.UserListRowVM>()
