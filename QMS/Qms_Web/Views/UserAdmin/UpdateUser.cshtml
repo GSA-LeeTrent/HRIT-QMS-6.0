@@ -1,6 +1,7 @@
 ﻿@model Qms_Data.ViewModels.UserAdminFormVM;
-@{
+
+@await Html.PartialAsync("_UserAdminForm.cshtml", Model)
+
+@section Scripts {
+    <script src="~/js/qms_user_admin_20220719.js"></script>
 }
-
-
-@await Html.PartialAsync("_UserAdminForm.cshtml", Model);

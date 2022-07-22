@@ -61,5 +61,16 @@ namespace Qms_Data.Repositories
         {
             return _dbContext.SecUser.AsNoTracking().Where(u => u.EmailAddress == emailAddress).SingleOrDefault();
         }
+
+        public SecUser RetrieveByUserId(int userId)
+        {
+            return _dbContext.SecUser
+                                .AsNoTracking()
+                                .Where(u => u.UserId == userId)
+                                .Include(u => u.Org)
+                                .Include(u => u.Manager)
+                                .Include(u => u.SecUserRole).ThenInclude(u => u.Role).ThenInclude(r => r.SecRolePermission).ThenInclude(r => r.Permission)
+                                .SingleOrDefault();
+        }
     }
 }

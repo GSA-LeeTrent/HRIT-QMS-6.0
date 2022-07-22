@@ -146,32 +146,6 @@ namespace Qms_Web.Controllers
             return View(uaFormVM);
         }
 
-        ////////////////////////////////////////////////////////////////////////////////
-        // UPDATE  USER
-        ////////////////////////////////////////////////////////////////////////////////
-        public IActionResult UpdateUser()
-        {
-            UserAdminFormVM uaFormVM = new UserAdminFormVM()
-            {
-                Mutatatable = true,
-                Deactivatable = false,
-                Reactivatable = false,
-                AspAction = "CreateUser",
-                SubmitButtonLabel = "Create",
-                CardHeader = "Add New User:"
-            };
-
-            this.populateOrganizationAndManagerDropdowns(uaFormVM);
-            this.populateRoleCheckboxes(uaFormVM);
-
-            return View(uaFormVM);
-        }
-
-        public IActionResult _UserAdminForm()
-        {
-            return PartialView();
-        }
-
         private void populateOrganizationAndManagerDropdowns(UserAdminFormVM uaFormVM)
         {
             // ORGANIZATIONS
@@ -218,6 +192,30 @@ namespace Qms_Web.Controllers
             {
                 checkboxRole.Selected = selectedRoleIdIntSet.Contains(checkboxRole.RoleId);
             }
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////
+        // UPDATE  USER
+        ////////////////////////////////////////////////////////////////////////////////
+        [HttpGet]
+        public IActionResult UpdateUser(int id)
+        {
+            UserAdminFormVM uaFormVM = _userAdminService.RetrieveUserByUserId(id);
+            uaFormVM.Mutatatable = true;
+            uaFormVM.Deactivatable = false;
+            uaFormVM.Reactivatable = false;
+            uaFormVM.AspAction = "UpdateUser";
+            uaFormVM.SubmitButtonLabel = "Update";
+            uaFormVM.CardHeader = "Update User:";
+
+            this.populateOrganizationAndManagerDropdowns(uaFormVM);
+
+            return View(uaFormVM);
+        }
+
+        public IActionResult _UserAdminForm()
+        {
+            return PartialView();
         }
     }
 }

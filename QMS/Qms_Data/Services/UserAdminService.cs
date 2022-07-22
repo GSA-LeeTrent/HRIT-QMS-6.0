@@ -103,5 +103,20 @@ namespace Qms_Data.Services
         {
             return _repository.RetrieveUserByEmailAddress(emailAddress) != null;
         }
+        public UserAdminFormVM RetrieveUserByUserId(int userId)
+        {
+            SecUser secUser = _repository.RetrieveByUserId(userId);
+            UserAdminFormVM uaFormVM = _mapper.Map<UserAdminFormVM>(secUser);
+
+            uaFormVM.CheckboxRoles = this.RetrieveActiveRoles();
+
+            HashSet<int> availableRowIdSet = new HashSet<int>(uaFormVM.CheckboxRoles.Select(r => r.RoleId));
+            HashSet<uint> assignedRoleIdSet = new HashSet<uint>(secUser.SecUserRole.Select(sur => sur.RoleId));
+            foreach (RoleVM checkboxRole in uaFormVM.CheckboxRoles)
+            {
+                checkboxRole.Selected = assignedRoleIdSet.Contains((uint)checkboxRole.RoleId);
+            }
+            return uaFormVM;
+        }
     }
 }
