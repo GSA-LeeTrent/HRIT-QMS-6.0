@@ -1,0 +1,94 @@
+﻿@model Qms_Data.ViewModels.UserAdminFormVM;
+
+@{
+    if (@Model.Deactivatable)
+    {
+    <div class="w-75 mt-2 mb-1 text-right">
+                <form asp-controller2="User2" asp-action="Deactivate" method="POST">
+                    <input type="hidden" asp-for="UserId" />
+                    <button class="btn btn-danger" type="submit">Deactivate</button>
+                </form>
+    </div>
+    }
+    if (@Model.Reactivatable)
+    {
+    <div class="w-75 mt-2 mb-1 text-right">
+                <form asp-controller2="User2" asp-action="Reactivate" method="POST">
+                    <input type="hidden" asp-for="UserId" />
+                    <button class="btn btn-success" type="submit">Reactivate</button>
+                </form>
+    </div>
+    }
+}
+
+    <h1 class="display-6 mt-4" style="font-size:1.9rem;">@Model.CardHeader</h1>
+    <div class="card">
+        <div class="card-body">
+            <form asp-controller="UserAdmin" asp-action="@Model.AspAction" method="POST" id="createOrUpdateUserForm">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="createOrUpdateUserEmail">Email Address:</label>
+                        <input type="email" class="form-control" id="createOrUpdateUserEmail" asp-for="EmailAddress">
+                        <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="createOrUpdateUserDisplayName">Display Name:</label>
+                        <input type="text" class="form-control" id="createOrUpdateUserDisplayName" asp-for="DisplayName">
+                        <span asp-validation-for="DisplayName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="createOrUpdateUserOrganization" class="form-label">Organization:</label>
+                        <select asp-for="OrgId" asp-items="ViewBag.ActiveOrganizations" class="form-select" id="createOrUpdateUserOrganization">
+                            <option value="">-- Select Organization --</option>
+                        </select>
+                        <span asp-validation-for="OrgId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="createOrUpdateUserManager" class="form-label">Manager:</label>
+                        <select asp-for="ManagerId" asp-items="ViewBag.PotentialManagers" class="form-select" id="createOrUpdateUserManager">
+                            <option value="">-- Select Manager --</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group col-md-12 border bg-light py-3 mb-3 ps-4">
+                    <div class="row">
+                        @{
+                            int count = 0;
+                            @foreach (var checkboxRole in Model.CheckboxRoles)
+                            {
+                                if (count++ % 2 == 0)
+                                {
+                                    @:</div><div class="row">
+                                }
+                                string createUpdateRoleForUserCheckboxId = $"createOrUpdateRoleForUser-{checkboxRole.RoleId}";
+                                @:<div class="form-group col-md-6 m-0">
+                                    @:<div class="custom-control custom-checkbox">
+                                        <input type="checkbox"
+                                               class="form-check-input"
+                                               id="@createUpdateRoleForUserCheckboxId"
+                                               name="selectedRoleIdsForUser"
+                                               value="@checkboxRole.RoleId"
+                                               @(Html.Raw(checkboxRole.Selected ? "checked=\"checked\"" : "")) />
+                                        <label class="form-check-label" for="@createUpdateRoleForUserCheckboxId">@checkboxRole.RoleLabel</label>
+                                    @:</div>
+                                @:</div>
+                            }
+                        }
+                    </div>
+                </div>
+                @if (@Model.Mutatatable)
+                {
+                    <input type="hidden" asp-for="UserId" />
+                    <button class="k-button k-button-md k-rounded-md k-button-solid k-button-solid-primary" type="submit">@Model.SubmitButtonLabel</button>
+                    <a class="k-button k-button-md k-rounded-md k-button-solid k-button-solid-secondary ml-1" asp-controller="UserAdmin" asp-action="Index">Cancel</a>
+                }
+                else
+                {
+                    <a class="btn btn btn-primary ml-1" asp-controller="User2" asp-action="Index">Done</a>
+                }
+            </form>
+        </div>
+    </div>

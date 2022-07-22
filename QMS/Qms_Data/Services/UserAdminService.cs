@@ -94,14 +94,49 @@ namespace Qms_Data.Services
                 };
                 entity.SecUserRole.Add(sur);
             }
-            
-
+          
             return _repository.CreateUser(entity);
         }
 
         public bool UserAlreadyExists(string emailAddress)
         {
             return _repository.RetrieveUserByEmailAddress(emailAddress) != null;
+        }
+        public UserAdminFormVM RetrieveUserByUserId(int userId)
+        {
+            SecUser secUser = _repository.RetrieveUserByUserId(userId);
+            UserAdminFormVM uaFormVM = _mapper.Map<UserAdminFormVM>(secUser);
+
+            uaFormVM.CheckboxRoles = this.RetrieveActiveRoles();
+
+            HashSet<int> availableRowIdSet = new HashSet<int>(uaFormVM.CheckboxRoles.Select(r => r.RoleId));
+            HashSet<uint> assignedRoleIdSet = new HashSet<uint>(secUser.SecUserRole.Select(sur => sur.RoleId));
+            foreach (RoleVM checkboxRole in uaFormVM.CheckboxRoles)
+            {
+                checkboxRole.Selected = assignedRoleIdSet.Contains((uint)checkboxRole.RoleId);
+            }
+            return uaFormVM;
+        }
+
+        public void UpdateUser(UserAdminFormVM uaForm, string[] selectedRoleIdsForUser)
+        {
+            SecUser entityToUpdate = _mapper.Map<SecUser>(uaForm);
+
+            uint[] roleIdsAsInts = Array.ConvertAll(selectedRoleIdsForUser, uint.Parse);
+            entityToUpdate.SecUserRole = new List<SecUserRole>();
+
+            foreach (uint roleId in roleIdsAsInts)
+            {
+                SecUserRole sur = new SecUserRole
+                {
+                    RoleId = roleId,
+                    UserId = 0,
+                    CreatedAt = DateTime.Now,
+                };
+                entityToUpdate.SecUserRole.Add(sur);
+            }
+
+           _repository.UpdateUser(entityToUpdate);
         }
     }
 }

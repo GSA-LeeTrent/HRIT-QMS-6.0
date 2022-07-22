@@ -50,9 +50,9 @@ namespace Qms_Web.Controllers
         }
 
         /////////////////////////////////////////////////////////////////////////////////////////
-        // LOGOUT [GET]
+        // LOGOUT [POST]
         /////////////////////////////////////////////////////////////////////////////////////////
-        [HttpGet("logout")]
+        [HttpPost("logout")]
         [Authorize]
         public async Task<IActionResult> LogoutAsync()
         {

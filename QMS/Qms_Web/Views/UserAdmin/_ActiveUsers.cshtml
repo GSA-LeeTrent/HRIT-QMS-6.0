@@ -5,13 +5,14 @@
         @(Html.Kendo().ToolBar().Name("ActiveUsersToolBar")
             .Items(items =>
             {
-                items.Add().Type(CommandType.Button).Text("Add New User").Icon("k-button-icon k-icon k-i-plus").Id("CreateUserButton").Click("buttonClickHandlerForCreateUser");
+                items.Add().Type(CommandType.Button).Text("Add New User").Icon("k-button-icon k-icon k-i-plus").Id("CreateUserButton").Click("buttonClickHandlerForCreateUser").Primary();
             })
         )
         @(Html.Kendo().Grid <Qms_Data.ViewModels.UserListRowVM>()
             .Name("active-users-grid")
             .Columns(columns =>
             {
+                columns.Template("<a href='/UserAdmin/UpdateUser?id=#= UserId#'><span class='k-icon k-i-pencil' title='Update'></span></a>").Width(10);
                 columns.Bound(p => p.EmailAddress);
                 columns.Bound(p => p.DisplayName);
                 columns.Bound(p => p.OrganizationName);
