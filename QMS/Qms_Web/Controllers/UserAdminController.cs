@@ -146,6 +146,32 @@ namespace Qms_Web.Controllers
             return View(uaFormVM);
         }
 
+        ////////////////////////////////////////////////////////////////////////////////
+        // UPDATE  USER
+        ////////////////////////////////////////////////////////////////////////////////
+        public IActionResult UpdateUser()
+        {
+            UserAdminFormVM uaFormVM = new UserAdminFormVM()
+            {
+                Mutatatable = true,
+                Deactivatable = false,
+                Reactivatable = false,
+                AspAction = "CreateUser",
+                SubmitButtonLabel = "Create",
+                CardHeader = "Add New User:"
+            };
+
+            this.populateOrganizationAndManagerDropdowns(uaFormVM);
+            this.populateRoleCheckboxes(uaFormVM);
+
+            return View(uaFormVM);
+        }
+
+        public IActionResult _UserAdminForm()
+        {
+            return PartialView();
+        }
+
         private void populateOrganizationAndManagerDropdowns(UserAdminFormVM uaFormVM)
         {
             // ORGANIZATIONS
