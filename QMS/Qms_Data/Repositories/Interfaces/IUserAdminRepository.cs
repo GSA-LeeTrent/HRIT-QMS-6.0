@@ -16,6 +16,8 @@ namespace Qms_Data.Repositories.Interfaces
         public int CreateUser(SecUser secUser);
         public SecUser RetrieveUserByEmailAddress(string emailAddress);
 
-        public SecUser RetrieveByUserId(int userId);
+        public SecUser RetrieveUserByUserId(int userId);
+
+        public void UpdateUser(SecUser secUser);
     }
 }

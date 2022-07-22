@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Qms_Data.Repositories.Interfaces;
 using QmsCore.Model;
 using System;
@@ -62,7 +63,7 @@ namespace Qms_Data.Repositories
             return _dbContext.SecUser.AsNoTracking().Where(u => u.EmailAddress == emailAddress).SingleOrDefault();
         }
 
-        public SecUser RetrieveByUserId(int userId)
+        public SecUser RetrieveUserByUserId(int userId)
         {
             return _dbContext.SecUser
                                 .AsNoTracking()
@@ -71,6 +72,41 @@ namespace Qms_Data.Repositories
                                 .Include(u => u.Manager)
                                 .Include(u => u.SecUserRole).ThenInclude(u => u.Role).ThenInclude(r => r.SecRolePermission).ThenInclude(r => r.Permission)
                                 .SingleOrDefault();
+        }
+        public void UpdateUser(SecUser entityToUpdate)
+        {
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            // PURGE EXISTING ROLES FIRST BECAUSE WE ARE DOING A DELETE FOLLOWWED BY AN INSERT FOR ROLES
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            IQueryable<SecUserRole> suRoles = _dbContext.SecUserRole.Where(r => r.UserId == entityToUpdate.UserId);
+            _dbContext.SecUserRole.RemoveRange(suRoles);
+            _dbContext.SaveChanges();
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            // MAKE SURE THAT THE DATABASE ENTITIES ARE IN A DETACHED STATE BEFORE PERFORMING UPDATE
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            //IEnumerable<EntityEntry> entityEntries = _dbContext.ChangeTracker.Entries();
+            //foreach (var entityEntry in entityEntries)
+            //{
+            //    entityEntry.State = EntityState.Detached;
+            //}
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            // RETRIEVE THE EXISTING 'CreatedAt' VALUE BEFORE PERFORMING THE UPDATE
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            SecUser existingEntity = _dbContext.SecUser.AsNoTracking().Where(u => u.UserId == entityToUpdate.UserId).SingleOrDefault();
+            entityToUpdate.CreatedAt = existingEntity.CreatedAt;
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            // SET THE 'UpdatedAt'
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            entityToUpdate.UpdatedAt = DateTime.Now;
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            // SAVE CHANGES TO DATABASE
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            _dbContext.SecUser.Update(entityToUpdate);
+            _dbContext.SaveChanges();
         }
     }
 }

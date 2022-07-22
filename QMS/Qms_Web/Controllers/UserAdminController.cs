@@ -132,6 +132,9 @@ namespace Qms_Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            ////////////////////////////////////////////////////////////////////////////////
+            // WE HAVE VALIDATION ERRORS
+            ////////////////////////////////////////////////////////////////////////////////
             uaFormVM.Mutatatable = true;
             uaFormVM.Deactivatable = false;
             uaFormVM.Reactivatable = false;
@@ -216,6 +219,46 @@ namespace Qms_Web.Controllers
         public IActionResult _UserAdminForm()
         {
             return PartialView();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateUser([Bind("UserId, ManagerId, OrgId, EmailAddress, DisplayName")] UserAdminFormVM uaFormVM, string[] selectedRoleIdsForUser)
+        {
+            if (selectedRoleIdsForUser == null || selectedRoleIdsForUser.Length == 0)
+            {
+                ModelState.AddModelError(string.Empty, "Please select at least one role.");
+            }
+
+            if (_userAdminService.UserAlreadyExists(uaFormVM.EmailAddress) == false)
+            {
+                ModelState.AddModelError(string.Empty, $"Cannot update user because the following email address is not in the QMS system: '{uaFormVM.EmailAddress}'.");
+            }
+
+            if (ModelState.IsValid)
+            {
+                _userAdminService.UpdateUser(uaFormVM, selectedRoleIdsForUser);
+                string successMsg = $"The following QMS User has been successfully updated: '{uaFormVM.DisplayName} - [{uaFormVM.EmailAddress}]'.";
+                HttpContext.Session.SetObject(UserAdminConstants.SUCCESS_MESSAGE, successMsg);
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            ////////////////////////////////////////////////////////////////////////////////
+            // WE HAVE VALIDATION ERRORS
+            ////////////////////////////////////////////////////////////////////////////////
+            uaFormVM.Mutatatable = true;
+            uaFormVM.Deactivatable = false;
+            uaFormVM.Reactivatable = false;
+            uaFormVM.AspAction = "UpdateUser";
+            uaFormVM.SubmitButtonLabel = "Update";
+            uaFormVM.CardHeader = "Update User:";
+
+            this.populateOrganizationAndManagerDropdowns(uaFormVM);
+            this.populateRoleCheckboxes(uaFormVM);
+            this.assignRoleCheckboxSelections(uaFormVM, selectedRoleIdsForUser!);
+
+            return View(uaFormVM);
         }
     }
 }

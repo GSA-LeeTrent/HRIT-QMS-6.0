@@ -18,5 +18,7 @@ namespace Qms_Data.Services.Interfaces
         public bool UserAlreadyExists(string emailAddress);
 
         public UserAdminFormVM RetrieveUserByUserId(int userId);
+
+        public void UpdateUser(UserAdminFormVM uaForm, string[] selectedRoleIdsForUser);
     }
 }

@@ -94,8 +94,7 @@ namespace Qms_Data.Services
                 };
                 entity.SecUserRole.Add(sur);
             }
-            
-
+          
             return _repository.CreateUser(entity);
         }
 
@@ -105,7 +104,7 @@ namespace Qms_Data.Services
         }
         public UserAdminFormVM RetrieveUserByUserId(int userId)
         {
-            SecUser secUser = _repository.RetrieveByUserId(userId);
+            SecUser secUser = _repository.RetrieveUserByUserId(userId);
             UserAdminFormVM uaFormVM = _mapper.Map<UserAdminFormVM>(secUser);
 
             uaFormVM.CheckboxRoles = this.RetrieveActiveRoles();
@@ -117,6 +116,27 @@ namespace Qms_Data.Services
                 checkboxRole.Selected = assignedRoleIdSet.Contains((uint)checkboxRole.RoleId);
             }
             return uaFormVM;
+        }
+
+        public void UpdateUser(UserAdminFormVM uaForm, string[] selectedRoleIdsForUser)
+        {
+            SecUser entityToUpdate = _mapper.Map<SecUser>(uaForm);
+
+            uint[] roleIdsAsInts = Array.ConvertAll(selectedRoleIdsForUser, uint.Parse);
+            entityToUpdate.SecUserRole = new List<SecUserRole>();
+
+            foreach (uint roleId in roleIdsAsInts)
+            {
+                SecUserRole sur = new SecUserRole
+                {
+                    RoleId = roleId,
+                    UserId = 0,
+                    CreatedAt = DateTime.Now,
+                };
+                entityToUpdate.SecUserRole.Add(sur);
+            }
+
+           _repository.UpdateUser(entityToUpdate);
         }
     }
 }
