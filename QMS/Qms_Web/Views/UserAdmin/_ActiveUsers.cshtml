@@ -12,6 +12,7 @@
             .Name("active-users-grid")
             .Columns(columns =>
             {
+                columns.Template("<a href='/UserAdmin/UpdateUser?id=#= UserId#'><span class='k-icon k-i-pencil' title='Update'></span></a>");
                 columns.Bound(p => p.EmailAddress);
                 columns.Bound(p => p.DisplayName);
                 columns.Bound(p => p.OrganizationName);
