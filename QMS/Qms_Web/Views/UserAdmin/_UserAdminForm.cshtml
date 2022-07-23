@@ -1,28 +1,25 @@
 ﻿@model Qms_Data.ViewModels.UserAdminFormVM;
 
-@{
-    if (@Model.Deactivatable)
-    {
-    <div class="w-75 mt-2 mb-1 text-right">
-                <form asp-controller="UserAdmin" asp-action="DeactivateUser" method="POST">
-                    <input type="hidden" asp-for="@Model.UserId" />
-                    <button class="btn btn-danger" type="submit">Deactivate</button>
-                </form>
-    </div>
-    }
-    if (@Model.Reactivatable)
-    {
-    <div class="w-75 mt-2 mb-1 text-right">
-                <form asp-controller="UserAdmin" asp-action="ReactivateUser" method="POST">
-                    <input type="hidden" asp-for="@Model.UserId" />
-                    <button class="btn btn-success" type="submit">Reactivate</button>
-                </form>
-    </div>
-    }
-}
-
     <h1 class="display-6 mt-4" style="font-size:1.9rem;">@Model.CardHeader</h1>
     <div class="card">
+        <div class="card-header">
+            @{
+                if (@Model.Deactivatable)
+                {
+                        <form asp-controller="UserAdmin" asp-action="DeactivateUser" method="POST">
+                            <input type="hidden" asp-for="@Model.UserId" />
+                            <button class="btn btn-danger" type="submit">Deactivate</button>
+                        </form>
+                }
+                if (@Model.Reactivatable)
+                {
+                        <form asp-controller="UserAdmin" asp-action="ReactivateUser" method="POST">
+                            <input type="hidden" asp-for="@Model.UserId" />
+                            <button class="btn btn-success" type="submit">Reactivate</button>
+                        </form>
+                }
+            }
+        </div>
         <div class="card-body">
             <form asp-controller="UserAdmin" asp-action="@Model.AspAction" method="POST" id="createOrUpdateUserForm">
                 <div asp-validation-summary="All" class="text-danger"></div>
@@ -57,24 +54,24 @@
                     <div class="row">
                         @{
                             int count = 0;
-                            @foreach (var checkboxRole in Model.CheckboxRoles)
+                                @foreach (var checkboxRole in Model.CheckboxRoles)
                             {
                                 if (count++ % 2 == 0)
                                 {
-                                    @:</div><div class="row">
+                                        @:</div><div class="row">
                                 }
                                 string createUpdateRoleForUserCheckboxId = $"createOrUpdateRoleForUser-{checkboxRole.RoleId}";
-                                @:<div class="form-group col-md-6 m-0">
-                                    @:<div class="custom-control custom-checkbox">
-                                        <input type="checkbox"
-                                               class="form-check-input"
-                                               id="@createUpdateRoleForUserCheckboxId"
-                                               name="selectedRoleIdsForUser"
-                                               value="@checkboxRole.RoleId"
-                                               @(Html.Raw(checkboxRole.Selected ? "checked=\"checked\"" : "")) />
-                                        <label class="form-check-label" for="@createUpdateRoleForUserCheckboxId">@checkboxRole.RoleLabel</label>
+                                    @:<div class="form-group col-md-6 m-0">
+                                        @:<div class="custom-control custom-checkbox">
+                                            <input type="checkbox"
+                                                   class="form-check-input"
+                                                   id="@createUpdateRoleForUserCheckboxId"
+                                                   name="selectedRoleIdsForUser"
+                                                   value="@checkboxRole.RoleId"
+                                                   @(Html.Raw(checkboxRole.Selected ? "checked=\"checked\"" : "")) />
+                                            <label class="form-check-label" for="@createUpdateRoleForUserCheckboxId">@checkboxRole.RoleLabel</label>
+                                        @:</div>
                                     @:</div>
-                                @:</div>
                             }
                         }
                     </div>
