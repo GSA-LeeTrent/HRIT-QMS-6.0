@@ -14,6 +14,7 @@ namespace Qms_Web.Mappings
         private void CreateMapProfiles()
         {
             CreateMap<SecUser, UserAdminFormVM>().ReverseMap();
+            CreateMap<SecUser, SkinnyUser>().ReverseMap();
         }
     }
 }

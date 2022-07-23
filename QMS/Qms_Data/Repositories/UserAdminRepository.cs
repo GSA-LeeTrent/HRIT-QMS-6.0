@@ -63,8 +63,13 @@ namespace Qms_Data.Repositories
             return _dbContext.SecUser.AsNoTracking().Where(u => u.EmailAddress == emailAddress).SingleOrDefault();
         }
 
-        public SecUser RetrieveUserByUserId(int userId)
+        public SecUser RetrieveUserByUserId(int userId, bool skinny = false)
         {
+            if (skinny)
+            {
+                return _dbContext.SecUser.AsNoTracking().Where(u => u.UserId == userId).SingleOrDefault();
+            }
+
             return _dbContext.SecUser
                                 .AsNoTracking()
                                 .Where(u => u.UserId == userId)
@@ -94,7 +99,7 @@ namespace Qms_Data.Repositories
             ///////////////////////////////////////////////////////////////////////////////////////////////
             // RETRIEVE THE EXISTING 'CreatedAt' VALUE BEFORE PERFORMING THE UPDATE
             ///////////////////////////////////////////////////////////////////////////////////////////////
-            SecUser existingEntity = _dbContext.SecUser.AsNoTracking().Where(u => u.UserId == entityToUpdate.UserId).SingleOrDefault();
+            SecUser existingEntity = this.RetrieveUserByUserId((int)entityToUpdate.UserId, skinny: true);
             entityToUpdate.CreatedAt = existingEntity.CreatedAt;
 
             ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -107,6 +112,26 @@ namespace Qms_Data.Repositories
             ///////////////////////////////////////////////////////////////////////////////////////////////
             _dbContext.SecUser.Update(entityToUpdate);
             _dbContext.SaveChanges();
+        }
+
+        public SecUser DeactivateUser(int userId)
+        {
+            SecUser deactivatedUser = this.RetrieveUserByUserId(userId, skinny: true);
+            deactivatedUser.DeletedAt = DateTime.Now;
+            _dbContext.SecUser.Update(deactivatedUser);
+            int updateCount = _dbContext.SaveChanges();
+
+            return deactivatedUser;
+        }
+
+        public SecUser ReactivateUser(int userId)
+        {
+            SecUser reactivatedUser = this.RetrieveUserByUserId(userId, skinny: true);
+            reactivatedUser.DeletedAt = null;
+            _dbContext.SecUser.Update(reactivatedUser);
+            int updateCount = _dbContext.SaveChanges();
+
+            return reactivatedUser;
         }
     }
 }

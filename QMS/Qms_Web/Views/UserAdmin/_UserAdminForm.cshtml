@@ -4,8 +4,8 @@
     if (@Model.Deactivatable)
     {
     <div class="w-75 mt-2 mb-1 text-right">
-                <form asp-controller2="User2" asp-action="Deactivate" method="POST">
-                    <input type="hidden" asp-for="UserId" />
+                <form asp-controller="UserAdmin" asp-action="DeactivateUser" method="POST">
+                    <input type="hidden" asp-for="@Model.UserId" />
                     <button class="btn btn-danger" type="submit">Deactivate</button>
                 </form>
     </div>
@@ -13,8 +13,8 @@
     if (@Model.Reactivatable)
     {
     <div class="w-75 mt-2 mb-1 text-right">
-                <form asp-controller2="User2" asp-action="Reactivate" method="POST">
-                    <input type="hidden" asp-for="UserId" />
+                <form asp-controller="UserAdmin" asp-action="ReactivateUser" method="POST">
+                    <input type="hidden" asp-for="@Model.UserId" />
                     <button class="btn btn-success" type="submit">Reactivate</button>
                 </form>
     </div>

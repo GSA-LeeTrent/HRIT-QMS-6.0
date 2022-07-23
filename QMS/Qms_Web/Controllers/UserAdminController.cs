@@ -10,6 +10,7 @@ using QmsCore.UIModel;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using static Qms_Web.Constants.QmsConstants;
 using Qms_Web.Extensions;
+using QmsCore.Model;
 
 namespace Qms_Web.Controllers
 {
@@ -205,8 +206,8 @@ namespace Qms_Web.Controllers
         {
             UserAdminFormVM uaFormVM = _userAdminService.RetrieveUserByUserId(id);
             uaFormVM.Mutatatable = true;
-            uaFormVM.Deactivatable = false;
-            uaFormVM.Reactivatable = false;
+            uaFormVM.Deactivatable = uaFormVM.IsActiveUser;
+            uaFormVM.Reactivatable = uaFormVM.IsActiveUser == false;
             uaFormVM.AspAction = "UpdateUser";
             uaFormVM.SubmitButtonLabel = "Update";
             uaFormVM.CardHeader = "Update User:";
@@ -259,6 +260,26 @@ namespace Qms_Web.Controllers
             this.assignRoleCheckboxSelections(uaFormVM, selectedRoleIdsForUser!);
 
             return View(uaFormVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeactivateUser(int userId)
+        {
+            SkinnyUser deactivatedUser = _userAdminService.DeactivateUser(userId);
+            string successMsg = $"The following QMS User has been successfully deactivated: '{deactivatedUser.DisplayName} - [{deactivatedUser.EmailAddress}]'.";
+            HttpContext.Session.SetObject(UserAdminConstants.SUCCESS_MESSAGE, successMsg);
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ReactivateUser(int userId)
+        {
+            SkinnyUser reactivatedUser = _userAdminService.ReactivateUser(userId);
+            string successMsg = $"The following QMS User has been successfully reactivated: '{reactivatedUser.DisplayName} - [{reactivatedUser.EmailAddress}]'.";
+            HttpContext.Session.SetObject(UserAdminConstants.SUCCESS_MESSAGE, successMsg);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

@@ -24,7 +24,14 @@ namespace Qms_Data.ViewModels
         [Display(Name = "DisplayName")]
         public string DisplayName { get; set; } = String.Empty;
 
-          public IList<RoleVM> CheckboxRoles { get; set; } = new List<RoleVM>();
+        public DateTime? DeletedAt { get; set; }
+
+        public bool IsActiveUser
+        {
+            get { return this.DeletedAt == null; }
+        }
+
+        public IList<RoleVM> CheckboxRoles { get; set; } = new List<RoleVM>();
 
         public string AspAction { get; set; } = String.Empty;
         public string SubmitButtonLabel { get; set; } = String.Empty;

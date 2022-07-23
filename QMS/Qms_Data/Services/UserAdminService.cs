@@ -23,6 +23,7 @@ namespace Qms_Data.Services
             MapperConfiguration mapperConfig = new MapperConfiguration(cfg => {
                 cfg.CreateMap<SecUser, UserAdminFormVM>().ReverseMap();
                 cfg.CreateMap<SecUser, UserListRowVM>().ReverseMap();
+                cfg.CreateMap<SecUser, SkinnyUser>().ReverseMap();
             });
 
             _mapper = mapperConfig.CreateMapper();
@@ -137,6 +138,18 @@ namespace Qms_Data.Services
             }
 
            _repository.UpdateUser(entityToUpdate);
+        }
+
+        public SkinnyUser DeactivateUser(int userId)
+        {
+            SecUser deactivatedUser = _repository.DeactivateUser(userId);
+            return _mapper.Map<SkinnyUser>(deactivatedUser);
+        }
+
+        public SkinnyUser ReactivateUser(int userId)
+        {
+            SecUser reactivatedUser = _repository.ReactivateUser(userId);
+            return _mapper.Map<SkinnyUser>(reactivatedUser);
         }
     }
 }
