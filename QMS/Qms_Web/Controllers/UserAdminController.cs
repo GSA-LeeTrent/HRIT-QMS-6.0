@@ -205,12 +205,12 @@ namespace Qms_Web.Controllers
         public IActionResult UpdateUser(int id)
         {
             UserAdminFormVM uaFormVM = _userAdminService.RetrieveUserByUserId(id);
-            uaFormVM.Mutatatable = true;
+            uaFormVM.Mutatatable = uaFormVM.IsActiveUser; 
             uaFormVM.Deactivatable = uaFormVM.IsActiveUser;
-            uaFormVM.Reactivatable = uaFormVM.IsActiveUser == false;
+            uaFormVM.Reactivatable = !uaFormVM.IsActiveUser;
             uaFormVM.AspAction = "UpdateUser";
             uaFormVM.SubmitButtonLabel = "Update";
-            uaFormVM.CardHeader = "Update User:";
+            uaFormVM.CardHeader = "Update User";
 
             this.populateOrganizationAndManagerDropdowns(uaFormVM);
 
