@@ -4,4 +4,24 @@
 
 @section Scripts {
     <script src="~/js/qms_user_admin_20220719.js"></script>
+    <script>
+        @if (@Model.Mutatatable) {
+            @:let boolDisabled = new Boolean(false);
+        } else {
+            @:let boolDisabled = new Boolean(true);
+        }
+        window.addEventListener("load", function () {
+            document.getElementById("createOrUpdateUserEmail").disabled =  boolDisabled.valueOf();
+            document.getElementById("createOrUpdateUserDisplayName").disabled = boolDisabled.valueOf();
+            document.getElementById("createOrUpdateUserOrganization").disabled = boolDisabled.valueOf();
+            document.getElementById("createOrUpdateUserManager").disabled = boolDisabled.valueOf();
+
+            for (let index = 1; index <= 100; index++) {
+                let checkboxTest = document.getElementById(`createOrUpdateRoleForUser-${index}`);
+                if (checkboxTest) {
+                    checkboxTest.disabled = boolDisabled.valueOf();
+                }
+            }
+        });
+</script>
 }
